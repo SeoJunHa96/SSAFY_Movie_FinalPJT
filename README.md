@@ -4,7 +4,6 @@
 <h4>RE: MOVIE</h4>
 </br>
 Remind / Recommend / Review
-</br>
 기억하고 싶은 / 나중에 보고 싶은 영화들의 목록을 관리하고
 </br>
 다른 사람들에게 좋은 영화를 추천하고
