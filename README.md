@@ -34,7 +34,7 @@ RE는 기억, 추천, 리뷰를 의미하며 해당 웹 서비스의 주요 기�
 
 ### 프로젝트 LOGO
 #### <초기 로고>
-<img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/RE_%20MOVIE-logo.png">
+<img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/RE_%20MOVIE-logo.png">{: width="150" height="150"}
 ---
 
 ### 프로젝트 요구사항
