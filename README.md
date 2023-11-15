@@ -59,7 +59,7 @@ RE는 기억, 추천, 리뷰를 의미하며 해당 웹 서비스의 주요 기�
 |  11월 19일(일)  |         1차 중간 점검(디버깅 및 보안 사항 확인)          |
 |  11월 20일(월)  |                                                          |
 |  11월 21일(화)  |                                                          |
-|  11월 22일(수)  |                                                          |
+|  11월 22일(수)  |                  배포, 디자인 마무리, 디버깅                  |
 |  11월 23일(목)  |                  최종 마무리, 발표 준비                  |
 
 
@@ -67,6 +67,12 @@ RE는 기억, 추천, 리뷰를 의미하며 해당 웹 서비스의 주요 기�
 ---
 
 ### 와이어 프레임
+
+메인 페이지<br><img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%841%20-%20%EB%A9%94%EC%9D%B8%20%ED%8E%98%EC%9D%B4%EC%A7%80.png" width="400" height="500"> <br><br>
+로그인 관련<br><img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%842%20-%20account.png" width="600" height="400"><br><br>
+프로필<br><img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%843%20-%ED%94%84%EB%A1%9C%ED%95%84.png" width="450" height="400"><br><br>
+영화 추천 관련<br><img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%844%20-%20%EC%98%81%ED%99%94%EC%B6%94%EC%B2%9C(movie).png" width="550" height="600"><br><br>
+커뮤니티 관련<br><img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%845%20-%20%EB%A6%AC%EB%B7%B0%20%EA%B2%8C%EC%8B%9C%ED%8C%90.png" width="700" height="350"><br>
 
 ---
 
