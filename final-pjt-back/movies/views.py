@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_safe
 from django.contrib.auth.decorators import login_required
-from .models import Movie, Comment
-from .forms import MovieForm, CommentForm
+from .models import Movie, Review
+from .forms import ReviewForm
+
 
 # Create your views here.
+@require_safe
 def index(request):
     movies = Movie.objects.all()
     context = {
@@ -11,89 +14,36 @@ def index(request):
     }
     return render(request, 'movies/index.html', context)
 
-def detail(request, pk):
-    movie = Movie.objects.get(pk=pk)
-    comment_form = CommentForm()
-    comments = movie.comment_set.all()
+
+@require_safe
+def detail(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
     context = {
         'movie': movie,
-        'comment_form': comment_form,
-        'comments': comments,
     }
     return render(request, 'movies/detail.html', context)
 
-@login_required
-def create(request):
-    if request.method == 'POST':
-        form = MovieForm(request.POST)
-        if form.is_valid():
-            movie = form.save(commit=False)
-            movie.user = request.user
-            movie.save()
-            return redirect('movies:detail', movie.pk)
-    else:
-        form = MovieForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'movies/create.html', context)
 
 @login_required
-def delete(request, pk):
+def reviews_create(request, pk):
     movie = Movie.objects.get(pk=pk)
-    if request.user == movie.user:
-        movie.delete()
-    return redirect('movies:index')
-
-@login_required
-def edit(request, pk):
-    movie = Movie.objects.get(pk=pk)
-    form = MovieForm(instance=movie)
-    context = {
-        'movie': movie,
-        'form': form,
-    }
-    return render(request, 'movies/edit.html', context)
-
-@login_required
-def update(request, pk):
-    movie = Movie.objects.get(pk=pk)
-    if request.user == movie.user:
-        if request.method == 'POST':
-            form = MovieForm(request.POST, instance=movie)
-            if form.is_valid():
-                form.save()
-                return redirect('movies:detail', movie.pk)
-        else:
-            form = MovieForm(instance=movie)
-    else:
-        return redirect('movies:index')
-    context = {
-        'movie': movie,
-        'form': form,
-    }
-    return render(request, 'movies/update.html', context)
-
-@login_required
-def comments_create(request, pk):
-    movie = Movie.objects.get(pk=pk)
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.movie = movie
-        comment.user = request.user
-        comment_form.save()
+    review_form = ReviewForm(request.POST)
+    if review_form.is_valid():
+        review = review_form.save(commit=False)
+        review.movie = movie
+        review.user = request.user
+        review_form.save()
         return redirect('movies:detail', movie.pk)
     context = {
         'movie': movie,
-        'comment_form': comment_form,
+        'review_form': review_form,
     }
     return render(request, 'movies/detail.html', context)
 
 @login_required
-def comments_delete(request, movie_pk, comment_pk):
-    comment = Comment.objects.get(pk=comment_pk)
-    if request.user == comment.user:
-        comment.delete()
+def reviews_delete(request, movie_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if request.user == review.user:
+        review.delete()
     return redirect('movies:detail', movie_pk)
 

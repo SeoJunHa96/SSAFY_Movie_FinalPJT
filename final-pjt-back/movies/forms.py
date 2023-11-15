@@ -1,17 +1,8 @@
 from django import forms
-from .models import Movie, Comment
+from .models import Review
 
 
-# class MovieForm(forms.Form):
-#     title = forms.CharField(max_length=10)
-#     content = forms.CharField(widget=forms.Textarea)
-
-class MovieForm(forms.ModelForm):
+class ReviewForm(forms.ModelForm):
     class Meta:
-        model = Movie
-        fields = ('title', 'content',)
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
+        model = Review
         fields = ('content',)
