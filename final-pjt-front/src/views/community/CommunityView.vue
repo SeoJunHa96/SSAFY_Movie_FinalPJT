@@ -4,7 +4,7 @@
 
 <template>
     <div>
-        리뷰게시판(커뮤니티)
+        영화 리뷰 커뮤니티 화면
     </div>
 </template>
 

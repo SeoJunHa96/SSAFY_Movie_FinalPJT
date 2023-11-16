@@ -1,43 +1,81 @@
 <template>
-    <div>
-        <div style="display: flex; justify-content: flex-end;">
-          <RouterLink :to="{ name: 'LoginView' }">로그인</RouterLink>
-        </div>
-        <b-navbar toggleable="lg" type="white" variant="white">
-          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-          <b-collapse id="nav-collapse" is-nav>
-            <router-link to="/" class="logo-link"><img src="@/assets/logo.png" alt="LOGO" style="width: 40px" /></router-link>
-            <b-navbar-nav class="mx-auto">
-              <router-link to="/profile" class="nav-link">My Profile</router-link>
-              <router-link to="/movies" class="nav-link">Recommend</router-link>
-              <router-link to="/movieranking" class="nav-link">Ranking</router-link>
-              <router-link to="/reviews" class="nav-link">Review</router-link>
-              <router-link to="/play" class="nav-link">Play</router-link>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-      <div style="margin-top: 3rem;"> <!-- 상단 여백 -->
-        <router-view></router-view> <!-- 페이지 내용 -->
-      </div>
-      <footer style="position: fixed; bottom: 0; width: 100%; height: 3rem; background-color: lightgray;">footer</footer> <!-- 푸터 -->
+  <div>
+    <div style="display: flex; justify-content: flex-end;">
+      <br>
     </div>
-  </template>
-  
-  <script setup>
-  import { RouterLink } from 'vue-router';
-  </script>
-  
-  <style scoped>
-  /* Add your scoped styles here */
-  .navbar-custom {
-    background-color: rgb(255, 255, 255);
-    color: white;
-  }
-  
-  /* Navbar links */
-  .navbar-custom .navbar-nav .nav-link {
-    color: white;
-    font-weight: bold;
-  }
-  </style>
-  
+    <b-navbar toggleable="lg" type="white" variant="white">
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+          <b-navbar-nav>
+            <router-link to="/profile" class="nav-link">My Profile</router-link>
+            <router-link to="/movies" class="nav-link">Recommend</router-link>
+            <router-link to="/movierank" class="nav-link">Movie Ranking</router-link>
+            <router-link to="/reviews" class="nav-link">Review</router-link>
+            <router-link to="/play" class="nav-link">영화 이상형 월드컵</router-link>
+          </b-navbar-nav>
+          <router-link to="/" class="logo-link"><img src="@/assets/logo.png" alt="LOGO" style="width: 95px" /></router-link>
+          <div><RouterLink :to="{ name: 'LoginView' }">로그인</RouterLink></div> <!-- 아무 내용이나 추가하여 로고를 가운데로 위치시킵니다. -->
+        </div>
+      </b-collapse>
+    </b-navbar>
+    <div style="margin-top: 2rem;">
+      <hr>
+      <router-view></router-view>
+    </div>
+    <footer class="custom-footer">
+      <p>Project By<br />SEO JUN HA & JEONG SE JIN</p> <br />
+      <a href="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT" class="github-link">https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT</a>
+    </footer>
+  </div>
+</template>
+
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
+
+<style scoped>
+/* Add your scoped styles here */
+.navbar-custom {
+  background-color: rgb(255, 255, 255);
+  color: white;
+}
+
+/* Navbar links */
+.navbar-custom .navbar-nav .nav-link {
+  color: white;
+  font-weight: bold;
+}
+.logo-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-footer {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  background-color: lightgray;
+  font-size: 0.6em;
+}
+
+.custom-footer p {
+  margin: 0;
+}
+
+.github-link {
+  color: inherit; 
+  text-decoration: none; 
+  font-style: italic; 
+  display: block; 
+}
+</style>

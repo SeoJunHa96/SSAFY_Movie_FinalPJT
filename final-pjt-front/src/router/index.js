@@ -7,11 +7,12 @@ import LoginView from '@/views/accounts/LoginView.vue'
 import MyProfileView from '@/views/accounts/MyProfileView.vue'
 
 import MovieView from '@/views/movie/MovieView.vue'
-import MovieRankingView from '@/views/movie/MovieRankingView.vue'
+import MovieRankView from '@/views/movie/MovieRankView.vue'
 
 import CommunityView from '@/views/community/CommunityView.vue'
 
 import PlayView from '@/views/play/playView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,9 +43,9 @@ const router = createRouter({
       component: MovieView,
     },
     {
-      path: '/movieranking',
-      name: 'MovieRanking',
-      component: MovieRankingView,
+      path: '/movierank',
+      name: 'MovieRank',
+      component: MovieRankView,
     },
     {
       path: '/reviews',
@@ -55,7 +56,8 @@ const router = createRouter({
       path: '/play',
       name: 'PlayView',
       component: PlayView
-    }
+    },
+
   ]
 })
 
