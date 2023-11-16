@@ -3,7 +3,17 @@ from django.contrib.auth.decorators import login_required
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
-# Create your views here.
+# from rest_framework.response import Response
+# from rest_framework.decorators import api_view
+
+# from .serializers import ArticleListSerializer
+
+# # Create your views here.
+# def article_list(request):
+#     articles = Article.objects.all()
+#     serializer = ArticleListSerializer(articles, many=True)
+#     return Response(serializer.data)
+
 def index(request):
     articles = Article.objects.all()
     context = {
