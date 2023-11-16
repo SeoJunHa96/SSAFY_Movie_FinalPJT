@@ -77,7 +77,7 @@ RE는 기억, 추천, 리뷰를 의미하며 해당 웹 서비스의 주요 기�
 ---
 
 ### ERD
-<img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/ERD.png" width="700" height="350"><br>
+<img src="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT/blob/main/img/ERD.png" width="700" height="700"><br>
 ---
 
 ### 기능 구현 (상세 페이지)
