@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
-    'articles',
+    'community',
     'movies',
     'rest_framework',
     'django_extensions',
