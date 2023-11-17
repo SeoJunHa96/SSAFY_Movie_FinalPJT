@@ -8,8 +8,11 @@ import MyProfileView from '@/views/accounts/MyProfileView.vue'
 
 import MovieView from '@/views/movie/MovieView.vue'
 import MovieRankView from '@/views/movie/MovieRankView.vue'
+import MoviePopular from '@/components/movie/MoviePopular.vue'
+import MovieVote from '@/components/movie/MovieVote.vue'
 
 import CommunityView from '@/views/community/CommunityView.vue'
+import CommunityDetailView from '@/views/community/CommunityDetailView.vue'
 
 import PlayView from '@/views/play/playView.vue'
 
@@ -57,6 +60,21 @@ const router = createRouter({
       name: 'PlayView',
       component: PlayView
     },
+    {
+      path: '/articles/:id',
+      name: 'DetailView',
+      component: CommunityDetailView
+    },
+    {
+      path:'/movierank/populer',
+      name: 'moviepopular',
+      component: MoviePopular
+    },
+    {
+      path:'/movierank/vote',
+      name: 'movievote',
+      component: MovieVote
+    }
 
   ]
 })
