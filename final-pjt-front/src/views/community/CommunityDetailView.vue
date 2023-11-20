@@ -6,6 +6,14 @@
         <p>내용 : {{ article.content }}</p>
         <p>작성일 : {{ article.created_at }}</p>
         <p>수정일 : {{ article.updated_at }}</p>
+        <hr>
+        <div v-for="comment in article.comment_set">
+          <li>{{ comment.user.username }} - {{ comment.content }}</li>
+        </div>
+        <input type="text">
+        <button>댓글달기</button>
+        <p>{{ article }}</p>
+        <p>{{ store }}</p>
       </div>
     </div>
   </template>
