@@ -11,7 +11,7 @@
             <router-link to="/profile" class="nav-link">My Profile</router-link>
             <router-link to="/movies" class="nav-link">Recommend</router-link>
             <router-link to="/movierank" class="nav-link">Movie Ranking</router-link>
-            <router-link to="/reviews" class="nav-link">Review</router-link>
+            <RouterLink :to="{ name:'CommunityView'}">Review</RouterLink>
             <router-link to="/play" class="nav-link">영화 이상형 월드컵</router-link>
           </b-navbar-nav>
           <router-link to="/" class="logo-link"><img src="@/assets/logo.png" alt="LOGO" style="width: 95px" /></router-link>
@@ -21,7 +21,7 @@
     </b-navbar>
     <div style="margin-top: 2rem;">
       <hr>
-      <router-view></router-view>
+      <RouterView />
     </div>
     <footer class="custom-footer">
       <p>Project By<br />SEO JUN HA & JEONG SE JIN</p> <br />
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <style scoped>

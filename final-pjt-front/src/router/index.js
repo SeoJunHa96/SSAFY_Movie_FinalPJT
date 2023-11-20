@@ -51,7 +51,7 @@ const router = createRouter({
       component: MovieRankView,
     },
     {
-      path: '/reviews',
+      path: '/community',
       name: 'CommunityView',
       component: CommunityView
     },
