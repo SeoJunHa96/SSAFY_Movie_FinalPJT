@@ -3,6 +3,7 @@ import HomeView from '@/views/home/HomeView.vue'
 
 import SignUpView from '@/views/accounts/SignUpView.vue'
 import LoginView from '@/views/accounts/LoginView.vue'
+import LogOutView from '@/views/accounts/LogOutView.vue'
 
 import MyProfileView from '@/views/accounts/MyProfileView.vue'
 
@@ -13,8 +14,7 @@ import MovieVote from '@/components/movie/MovieVote.vue'
 
 import CommunityView from '@/views/community/CommunityView.vue'
 import CommunityDetailView from '@/views/community/CommunityDetailView.vue'
-
-import PlayView from '@/views/play/playView.vue'
+import CreateView from '@/views/community/CreateView.vue'
 
 
 const router = createRouter({
@@ -34,6 +34,11 @@ const router = createRouter({
       path: '/login',
       name: 'LoginView',
       component: LoginView
+    },
+    {
+      path: '/logOut',
+      name: 'LogOutView',
+      component: LogOutView
     },
     {
       path: '/profile',
@@ -56,9 +61,9 @@ const router = createRouter({
       component: CommunityView
     },
     {
-      path: '/play',
-      name: 'PlayView',
-      component: PlayView
+      path: '/create',
+      name: 'CreateView',
+      component: CreateView
     },
     {
       path: '/articles/:id',
@@ -79,6 +84,18 @@ const router = createRouter({
   ]
 })
 
+import { useCounterStore } from '@/stores/counter'
 
+router.beforeEach((to, from) => {
+  const store = useCounterStore()
+  if (to.name === 'HomeView' && !store.isLogin) {
+    window.alert('로그인이 필요합니다.')
+    return { name: 'LogInView' }
+  }
+  if ((to.name === 'HomeView' || to.name === 'LoginView') && (store.isLogin)) {
+    window.alert('이미 로그인 했습니다.')
+    return { name: 'ArticleView' }
+  }
+})
 
 export default router
