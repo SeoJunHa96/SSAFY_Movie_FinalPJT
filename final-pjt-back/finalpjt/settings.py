@@ -35,14 +35,14 @@ INSTALLED_APPS = [
     'community',
     'movies',
     'rest_framework',
-    # 'rest_framework.authtoken',
-    # 'dj_rest_auth',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'corsheaders',
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'dj_rest_auth.registration',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,16 +52,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# REST_FRAMEWORK = {
-#     # Authentication
-#     'DEFAULT_AUTHENTICATION_CLASSES' : [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ],
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 #     # permission
-#     'DEFAULT_PERMISSION_CLASSES' : [
-#         'rest_framework.permissions.AllowAny'
-#     ],
-# }
+    'DEFAULT_PERMISSION_CLASSES' : [
+        'rest_framework.permissions.AllowAny'
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

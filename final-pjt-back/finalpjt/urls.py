@@ -21,7 +21,8 @@ from accounts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('dj_rest_auth.urls')),
+    path('accounts/signup/', include('dj_rest_auth.registration.urls')),
     path('community/', include('community.urls')),
     path('api/v1/', include('movies.urls')),
     path('<int:user_pk>/password/', views.change_password, name='change_password'),
