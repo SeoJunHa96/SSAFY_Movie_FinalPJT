@@ -1,6 +1,6 @@
 [
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 1,
     "fields": {
         "title": "Hair each base dark guess garden accept.",
@@ -10,7 +10,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 2,
     "fields": {
         "title": "Sit sign share you.",
@@ -20,7 +20,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 3,
     "fields": {
         "title": "Player strong interest process Mr.",
@@ -30,7 +30,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 4,
     "fields": {
         "title": "Finish carry he meeting myself third.",
@@ -40,7 +40,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 5,
     "fields": {
         "title": "Across level professor of court every himself.",
@@ -50,7 +50,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 6,
     "fields": {
         "title": "Body large buy movie director.",
@@ -60,7 +60,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 7,
     "fields": {
         "title": "Win experience right then.",
@@ -70,7 +70,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 8,
     "fields": {
         "title": "Blood home generation state wish maybe know.",
@@ -80,7 +80,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 9,
     "fields": {
         "title": "Several find probably evidence theory watch on.",
@@ -90,7 +90,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 10,
     "fields": {
         "title": "Item responsibility create black general.",
@@ -100,7 +100,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 11,
     "fields": {
         "title": "With happen thing hard find Congress open including.",
@@ -110,7 +110,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 12,
     "fields": {
         "title": "Share person against must be could organization.",
@@ -120,7 +120,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 13,
     "fields": {
         "title": "And never body.",
@@ -130,7 +130,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 14,
     "fields": {
         "title": "Marriage cold real receive night.",
@@ -140,7 +140,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 15,
     "fields": {
         "title": "Against clear thought lose poor.",
@@ -150,7 +150,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 16,
     "fields": {
         "title": "Fall it expect between.",
@@ -160,7 +160,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 17,
     "fields": {
         "title": "Will wrong quality no.",
@@ -170,7 +170,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 18,
     "fields": {
         "title": "Reach cold education garden share quite what prevent.",
@@ -180,7 +180,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 19,
     "fields": {
         "title": "Law compare per thus.",
@@ -190,7 +190,7 @@
     }
 },
 {
-    "model": "articles.article",
+    "model": "community.article",
     "pk": 20,
     "fields": {
         "title": "Water behavior return interesting return understand.",
