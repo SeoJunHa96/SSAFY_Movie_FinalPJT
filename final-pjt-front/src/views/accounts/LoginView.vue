@@ -4,12 +4,12 @@ import { useCounterStore } from '@/stores/counter'
 
 const store = useCounterStore()
 
-const login = function() {
+const logIn = function() {
     const payload = {
         username: username.value,
         password: password.value
     }
-    store.login(payload)
+    store.logIn(payload)
 }
 
 const username = ref(null)
@@ -19,7 +19,7 @@ const password = ref(null)
 <template>
     <div>
         <h1>로그인</h1>
-        <form @submit.prevent="login">
+        <form @submit.prevent="logIn">
             <label for="username">ID : </label>
             <input type="text" id="username" v-model.trim="username"><br>
 

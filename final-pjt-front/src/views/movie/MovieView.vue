@@ -4,7 +4,7 @@
 
 <template>
     <div>
-
+        영화추천
     </div>
 </template>
 

@@ -15,7 +15,9 @@
             <router-link to="/play" class="nav-link">영화 이상형 월드컵</router-link>
           </b-navbar-nav>
           <router-link to="/" class="logo-link"><img src="@/assets/logo.png" alt="LOGO" style="width: 95px" /></router-link>
-          <div><RouterLink :to="{ name: 'LoginView' }">로그인</RouterLink></div> <!-- 아무 내용이나 추가하여 로고를 가운데로 위치시킵니다. -->
+          <div><RouterLink :to="{ name: 'LoginView' }">로그인</RouterLink> |
+            <RouterLink :to="{ name: 'SignUpView' }">회원가입</RouterLink>
+          </div> 
         </div>
       </b-collapse>
     </b-navbar>
