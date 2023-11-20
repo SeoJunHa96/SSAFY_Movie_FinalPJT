@@ -7,6 +7,14 @@
         <p>작성일 : {{ article.created_at }}</p>
         <p>수정일 : {{ article.updated_at }}</p>
         <hr>
+        <div>
+          <h3>댓글</h3>
+          <CommentList
+          v-for="comment in article.comment_set"
+          :comment="comment"
+          />
+    </div>
+        <hr>
         <div v-for="comment in article.comment_set">
           <li>{{ comment.user.username }} - {{ comment.content }}</li>
         </div>
