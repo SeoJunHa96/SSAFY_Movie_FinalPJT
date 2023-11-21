@@ -3,44 +3,17 @@
 
       <div>
         <h1>지금 상영중인 영화</h1>
-        <swiper
-          class="swiper"
-          :modules="modules"
-          :pagination="true"
-          :effect="'coverflow'"
-          :grab-cursor="true"
-          :centered-slides="true"
-          :slides-per-view="'auto'"
-          :coverflow-effect="{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true
-          }"
-        >
-          <swiper-slide v-for="movie in movies" :key="movie.id">
-            <img :src="getImageUrl(movie.poster_path)" alt="movie_poster" />
-          </swiper-slide>
-          <!-- <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div> -->
-        </swiper>
-        <div v-if="loading">로딩 중...</div>
-        <div v-else class="movie-list">
-          <div class="movie-row" v-for="(movieRow, rowIndex) in movieChunks" :key="rowIndex">
-            <div v-for="movie in movieRow" :key="movie.id" class="movie-item">
-              <div class="movie-card" @mouseenter="toggleCard(movie.id)" @mouseleave="toggleCard(null)" @click="goDetail(movie)">
-                <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster" class="movie-poster" />
-                <div class="movie-info" v-if="hoveredMovie === movie.id">
-                  <h3>{{ movie.title }}</h3>
-                  <p>개봉 : {{ movie.release_date }}</p>
-                  <p>평점 : {{ movie.vote_average }}</p>
-                  <p>줄거리: {{ movie.overview }}</p>
-                </div>
-              </div>
+        <!-- <p>{{ movies }}</p>  -->
+
+            <div class="movie-cards">
+              <HomeMovieCard
+                  v-for="movie in movies"
+                  :key="movie.id"
+                  :movie="movie"
+                  class="movie-card"
+                />
             </div>
-          </div>
-        </div>
+
       </div>
       <div class="search-bar" style="display: flex; justify-content: center; width: 100%; height: 40px; border: none; background-color: #fff;">
         <input type="text" class="input" style="border: none; height: 40px; width: 500px;" placeholder="제목, 배우, 감독 등으로 검색하세요.">
@@ -51,22 +24,24 @@
   
   <script setup>
   import { ref, onMounted, computed } from 'vue';
+  import { useRoute } from 'vue-router';
   import router from '@/router';
-  import 'swiper/swiper-bundle.css';
-  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+  import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
   
   const movies = ref([]);
   const loading = ref(true);
   const hoveredMovie = ref(null);
+  const route = useRoute()
   
   const fetchTopRatedMovies = async () => {
     const apiKey = '3691eda9c0d72053e1652d747c826899';
-    const apiUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR`;
+    const apiUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR&page=1`;
   
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
-      movies.value = data.results.slice(0, 10); // 처음부터 10개만 가져오도록 수정
+      movies.value = data.results;
+      console.log(movies)
       loading.value = false;
     } catch (error) {
       console.error('데이터 불러오기 오류:', error);
@@ -144,6 +119,7 @@
   
   .movie-card {
     position: relative;
+    display: inline-block;
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
