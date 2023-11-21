@@ -2,11 +2,34 @@
     <div>
 
       <div>
+        <h1>지금 상영중인 영화</h1>
+        <swiper
+          class="swiper"
+          :modules="modules"
+          :pagination="true"
+          :effect="'coverflow'"
+          :grab-cursor="true"
+          :centered-slides="true"
+          :slides-per-view="'auto'"
+          :coverflow-effect="{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true
+          }"
+        >
+          <swiper-slide v-for="movie in movies" :key="movie.id">
+            <img :src="getImageUrl(movie.poster_path)" alt="movie_poster" />
+          </swiper-slide>
+          <!-- <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div> -->
+        </swiper>
         <div v-if="loading">로딩 중...</div>
         <div v-else class="movie-list">
           <div class="movie-row" v-for="(movieRow, rowIndex) in movieChunks" :key="rowIndex">
             <div v-for="movie in movieRow" :key="movie.id" class="movie-item">
-              <div class="movie-card" @mouseenter="toggleCard(movie.id)" @mouseleave="toggleCard(null)">
+              <div class="movie-card" @mouseenter="toggleCard(movie.id)" @mouseleave="toggleCard(null)" @click="goDetail(movie)">
                 <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster" class="movie-poster" />
                 <div class="movie-info" v-if="hoveredMovie === movie.id">
                   <h3>{{ movie.title }}</h3>
@@ -29,6 +52,8 @@
   <script setup>
   import { ref, onMounted, computed } from 'vue';
   import router from '@/router';
+  import 'swiper/swiper-bundle.css';
+  import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
   
   const movies = ref([]);
   const loading = ref(true);
@@ -36,7 +61,7 @@
   
   const fetchTopRatedMovies = async () => {
     const apiKey = '3691eda9c0d72053e1652d747c826899';
-    const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=ko-KR`;
+    const apiUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR`;
   
     try {
       const response = await fetch(apiUrl);
@@ -65,7 +90,7 @@
   };
   
   const goDetail = (movie) => {
-    router.push(`/${movie.id}`);
+    router.push(`/movies/${movie.id}`);
   };
   
   const searchTerm = ref('');
@@ -91,6 +116,18 @@
     }
     return result;
   });
+
+  const swiperOptions = {
+    slidesPerView: 1,
+    pagination: { 
+        el: '.swiper-pagination', 
+        clickable: true 
+    }, 
+    navigation: { 
+        nextEl: '.swiper-button-next', 
+        prevEl: '.swiper-button-prev' 
+    } 
+  }
   </script>
   
   <style scoped>

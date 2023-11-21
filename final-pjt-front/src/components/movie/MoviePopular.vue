@@ -3,7 +3,7 @@
     <h3>TOP 10</h3>
 
   
-  <div class="top-five" v-for="(movie, index) in topTenMovies.slice(0, 5)" :key="index">
+  <div class="top-five" @click="goDetail(movie)" v-for="(movie, index) in topTenMovies.slice(0, 5)" :key="index">
     <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster" class="top-movie-poster" />
     <br>
     <strong class="movie-title">{{ movie.title }}</strong>
@@ -12,7 +12,7 @@
   </div>
   <br><br>
 
-  <div class="other-five" v-for="(movie, index) in topTenMovies.slice(5, 10)" :key="index">
+  <div class="other-five" @click="goDetail(movie)" v-for="(movie, index) in topTenMovies.slice(5, 10)" :key="index">
     <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster" class="top-movie-poster" />
     <br>
     <strong class="movie-title">{{ movie.title }}</strong>
@@ -25,7 +25,7 @@
     <div class="other-movies">
   <div class="seven-movies-per-line" v-for="(movieGroup, groupIndex) in groupedOtherMovies" :key="groupIndex">
     <div class="seven-movies-row">
-      <div v-for="(movie, index) in movieGroup" :key="index" class="other-movie-item" @mouseover="toggleFlip(movie)">
+      <div v-for="(movie, index) in movieGroup" @click="goDetail(movie)" :key="index" class="other-movie-item" @mouseover="toggleFlip(movie)">
         <div class="movie-poster-container" :class="{ flipped: movie.flipped }">
           <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster" class="movie-poster" v-if="movie.poster_path" />
           <div class="movie-details">
@@ -42,6 +42,7 @@
 
 <script setup>
 import axios from 'axios';
+import router from '@/router';
 import { ref, computed, onMounted } from 'vue';
 
 const apiKey = '3691eda9c0d72053e1652d747c826899';
@@ -52,7 +53,7 @@ const movies = computed(() => {
 });
 
 async function fetchMovies(page) {
-  const apiUrl = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}&page=${page}`;
+  const apiUrl = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}&language=ko-KR&page=${page}`;
 
   try {
     const response = await axios.get(apiUrl);
@@ -99,6 +100,10 @@ const groupedOtherMovies = computed(() => {
 
 const toggleFlip = (movie) => {
 movie.flipped = !movie.flipped;
+};
+
+const goDetail = (movie) => {
+    router.push(`/movies/${movie.id}`);
 };
 
 </script>

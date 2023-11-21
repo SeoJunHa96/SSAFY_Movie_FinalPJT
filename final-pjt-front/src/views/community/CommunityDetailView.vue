@@ -1,28 +1,22 @@
 <template>
     <div>
       <h1>Detail</h1>
-      <div v-if="article">
-        <p>제목 : {{ article.title }}</p>
-        <p>내용 : {{ article.content }}</p>
-        <p>작성일 : {{ article.created_at }}</p>
-        <p>수정일 : {{ article.updated_at }}</p>
-        <hr>
-        <div>
-          <h3>댓글</h3>
-          <CommentList
-          v-for="comment in article.comment_set"
-          :comment="comment"
-          />
-    </div>
-        <hr>
-        <div v-for="comment in article.comment_set">
-          <li>{{ comment.user.username }} - {{ comment.content }}</li>
+    <div v-if="article">
+      <p>제목: {{ article.title }}</p>
+      <p>내용: {{ article.content }}</p>
+      <p>작성일: {{ article.created_at }}</p>
+      <p>수정일: {{ article.updated_at }}</p>
+      <hr>
+      <div v-if="article.comment_set">
+        <h3>댓글</h3>
+        <div v-for="comment in article.comment_set" :key="comment.id">
+          <CommentList :comment="comment" />
         </div>
-        <input type="text">
-        <button>댓글달기</button>
-        <p>{{ article }}</p>
-        <p>{{ store }}</p>
       </div>
+      <div v-else>
+        <p>로딩중</p>
+      </div>
+    </div>
     </div>
   </template>
   
@@ -31,6 +25,7 @@
   import { onMounted, ref } from 'vue'
   import { useCounterStore } from '@/stores/counter'
   import { useRoute } from 'vue-router'
+  import CommentList from '@/components/community/CommentList.vue'
   
   const store = useCounterStore()
   const route = useRoute()

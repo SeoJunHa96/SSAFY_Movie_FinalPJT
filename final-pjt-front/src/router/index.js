@@ -16,6 +16,9 @@ import CommunityView from '@/views/community/CommunityView.vue'
 import CommunityDetailView from '@/views/community/CommunityDetailView.vue'
 import CreateView from '@/views/community/CreateView.vue'
 
+import MovieDetailView from '@/views/movie/MovieDetailView.vue'
+import ActorView from '@/views/movie/ActorView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -79,7 +82,17 @@ const router = createRouter({
       path:'/movierank/vote',
       name: 'movievote',
       component: MovieVote
-    }
+    },
+    {
+      path:'/movies/:id',
+      name: 'movieDetail',
+      component: MovieDetailView
+    },
+    {
+      path:'/actors/:id',
+      name: 'actorView',
+      component: ActorView
+    },
 
   ]
 })
