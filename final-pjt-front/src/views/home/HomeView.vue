@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <div>
-      <h1>지금 상영 중인 영화</h1>
+      <h1>최근 개봉한 영화</h1>
       <Swiper
         :modules="swiperOptions.modules"
         :centered-slides="true"
@@ -14,6 +14,7 @@
       >
       <SwiperSlide  v-for="movie in newMovies" :key="movie.id">
         <HomeMovieCard
+          v-if="movie.poster_path"
           :key="movie.id"
           :movie="movie"
         />
@@ -33,6 +34,7 @@
       >
       <SwiperSlide  v-for="movie in upcomingMovies" :key="movie.id">
         <HomeMovieCard
+          v-if="movie.poster_path"
           :key="movie.id"
           :movie="movie"
         />
@@ -43,9 +45,7 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
-import router from '@/router';
 import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
 import 'swiper/swiper-bundle.css';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -53,11 +53,12 @@ import { Navigation } from 'swiper';
 
 // swiper 관련1
 const onSwiper = (swiper) => {
+  // console.log(swiper);
 };
 
 // swiper 관련2
 const onSlideChange = () => {
-  console.log('slide change');
+  // console.log('slide change');
 };
 
 // swiper 관련3
@@ -78,7 +79,6 @@ const futureDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); 
 
 const newMovies = ref([]);
 const upcomingMovies = ref([]);
-const moviesData = ref([]);
 const loading = ref(true);
 
 const formatDate = (date) => {
@@ -94,9 +94,8 @@ const fetchNewMovies = async () => {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    newMovies.value = data.results;
+    newMovies.value = data.results.filter(movie => movie.poster_path);
     loading.value = false
-    // New Movies 데이터를 처리하는 로직을 작성하세요.
   } catch (error) {
     console.error('데이터 불러오기 오류:', error);
   }
@@ -108,7 +107,7 @@ const fetchUpcomingMovies = async () => {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    upcomingMovies.value = data.results;
+    upcomingMovies.value = data.results.filter(movie => movie.poster_path);
     loading.value = false
   } catch (error) {
     console.error('데이터 불러오기 오류:', error);
@@ -123,49 +122,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.movie-item {
-  flex: 0 0 calc(20% - 20px); /* 5개 아이템을 한 줄에 배치하기 위한 스타일 */
-  margin: 10px;
-}
-
-.movie-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* 5개 아이템을 한 줄에 배치하기 위한 스타일 */
-}
-
-.movie-card {
-  position: relative;
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-.movie-poster {
-  max-width: 200px; /* 포스터 최대 너비 */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* 가운데 정렬 */
-}
-
-.movie-info {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 10px;
-}
-
-.movie-card:hover .movie-info {
-  display: block;
-}
-
 .main-container {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 </style>
