@@ -1,16 +1,16 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import status
-from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer
-
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Article
 from .serializers import ArticleListSerializer, CommentSerializer, ArticleSerializer, CommentListSerializer
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 
 
-
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def article_list_create(request):
     if request.method == 'GET':
         articles = Article.objects.all()
@@ -22,7 +22,20 @@ def article_list_create(request):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated]) 
+def create_article(request):
+    serializer = ArticleSerializer(data=request.data)
+    if serializer.is_valid():
+        # 현재 인증된 사용자를 해당 데이터의 사용자로 설정
+        serializer.save(user=request.user)
+        print('인증됨')
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    print('인증안됨')
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
 
+@permission_classes([AllowAny])
 @api_view(['GET'])
 def article_detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
@@ -30,7 +43,7 @@ def article_detail(request, article_pk):
     serializer = ArticleListSerializer(article)
     return Response(serializer.data)
     
-
+@permission_classes([AllowAny])
 @api_view(['GET'])
 def comment_list(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)

@@ -61,12 +61,13 @@ SITE_ID = 1
 REST_FRAMEWORK = {
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     # permission
     'DEFAULT_PERMISSION_CLASSES' : [
-        'rest_framework.permissions.IsAuthenticated', # 인증 확인
+        # 'rest_framework.permissions.IsAuthenticated', # 인증 확인
         'rest_framework.permissions.AllowAny' # 누구나 접근
     ],
 
@@ -88,10 +89,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',
+    'http://localhost:5173',
+    
+]
+
+CORS_ORIGIN_WHITELIST = [
     'http://localhost:5173',
 ]
 

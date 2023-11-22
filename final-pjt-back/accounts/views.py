@@ -1,21 +1,27 @@
 from rest_framework.response import Response
+from django.http import JsonResponse, HttpRequest
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from .serializers import UserSerializer
 from django.contrib.auth import login
+from django.contrib.auth import logout as auth_logout
 from django.shortcuts import redirect
+from rest_framework.authtoken.models import Token
 import requests
+from django.contrib.auth.decorators import login_required
 
+from rest_framework.permissions import AllowAny
 
-
+@permission_classes([AllowAny])
 @api_view(['POST'])
 def signup(request):
+    # auth_logout(request)
     print(request.data)
     password = request.data.get('password')
-    password_confirmation = request.data.get('passwordConfirmation')
+    password_confirmation = request.data.get('password2')
     
     if password != password_confirmation:
         return Response({ 'error': '비밀번호가 일치하지 않습니다.'})
@@ -32,6 +38,28 @@ def signup(request):
 
             return Response(serializer.data)
 
+@permission_classes([AllowAny])
+@api_view(['DELETE'])
+def logout(request):
+    auth_logout(request)
+    return JsonResponse({'message': 'OK'})
+
+@api_view(['POST'])
+def custom_login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    if username is None or password is None:
+        return Response({'error': 'username 또는 password가 전송되지 않았습니다.'}, status=400)
+
+    user = authenticate(request, username=username, password=password)
+    if user:
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key, 'success': '로그인 성공'})
+    else:
+        return Response({'error': '유효하지 않은 인증 정보입니다.'}, status=401)
+
+
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
@@ -45,12 +73,10 @@ def my_profile(request):
 
 
 @api_view(['GET'])
-def profile(request, user_pk):
-    print(request.data)
-    user = get_object_or_404(get_user_model(), pk=user_pk)
+def get_my_profile(request):
+    user = request.user
     serializer = UserSerializer(user)
     return Response(serializer.data)
-
 
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
@@ -105,3 +131,4 @@ def users_info(request):
         serializer = UserSerializer(user)
 
     return Response(movies)
+

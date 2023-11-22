@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 
 const store = useCounterStore()
+const username = ref(null)
+const password = ref(null)
 
 const logIn = function() {
     const payload = {
@@ -12,8 +14,6 @@ const logIn = function() {
     store.logIn(payload)
 }
 
-const username = ref(null)
-const password = ref(null)
 </script>
 
 <template>

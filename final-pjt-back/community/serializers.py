@@ -1,14 +1,7 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
 from .models import Article, Comment
 
-# 유저 정보
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ('pk', 'username',)
 
-# 게시글 목록
 class ArticleListSerializer(serializers.ModelSerializer):
     userName = serializers.SerializerMethodField()
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
@@ -22,13 +15,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'user', 'userName',)
         read_only_fields = ('user',)
 
-# class CommentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Comment
-#         fields = '__all__'
-#         read_only_fields = ('article', )
 
-# 게시글 자세히
 class ArticleSerializer(serializers.ModelSerializer):
     userName = serializers.SerializerMethodField()
 

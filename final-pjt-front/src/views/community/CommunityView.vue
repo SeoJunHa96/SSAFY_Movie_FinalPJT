@@ -1,7 +1,6 @@
 
 <template>
     <div>
-        <p>{{ store }}</p>
         <RouterLink :to="{ name:'CreateView'}">
         [Create]
         </RouterLink>        

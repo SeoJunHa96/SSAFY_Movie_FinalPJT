@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms import BooleanField
+from rest_framework.authtoken.models import Token
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -28,8 +29,8 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     username = models.CharField("아이디", max_length=50, unique=True)
     password = models.CharField("비밀번호", max_length=128)
-    nickname = models.CharField("닉네임", max_length=50, unique=True)
-    email = models.EmailField(unique=False)
+    nickname = models.CharField("닉네임", max_length=50)
+    email = models.EmailField(unique=False, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     
@@ -46,6 +47,11 @@ class User(AbstractBaseUser):
         return True
     def has_module_perms(self, app_label):
         return True
+    
+    def save(self, *args, **kwargs):
+    # 사용자 저장 시 토큰 생성
+        super().save(*args, **kwargs)
+        Token.objects.get_or_create(user=self)
     
     @property
     def is_staff(self):
