@@ -55,13 +55,16 @@ export const useCounterStore = defineStore('counter', () => {
         username, password
       }
     })
-      .then((res) => {
-        console.log(res.data)
-        saveToken(res.data.token); // 새로운 토큰 저장
-        router.push({ name: 'home'})
-      })
-      .catch((err) => console.log('로그인왜안됨'))
-  }
+    .then((res) => {
+      console.log(res.data);
+      saveToken(res.data.token); // 새로운 토큰 저장
+      // 이후에 router.push()를 실행하고, push 완료 후 페이지를 새로 고침
+      router.push({ name: 'home' }).then(() => {
+        location.reload();
+      });
+    })
+    .catch((err) => console.log('로그인 왜 안됨'));
+  };
   
   const logOut = function () {
     axios({

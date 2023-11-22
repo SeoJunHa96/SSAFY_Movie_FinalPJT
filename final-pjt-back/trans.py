@@ -1,3 +1,13 @@
+'''
+movies/fixtures/ 만들고 
+
+python trans.py 
+
+python manage.py migrate
+
+python manage.py loaddata genres.json movies.json 
+
+'''
 import urllib.request
 from pprint import pprint
 import sys
@@ -130,14 +140,3 @@ def moviedata():
 updatedate()
 moviedata()
 
-
-'''
-movies/fixtures/ 만들고 
-
-python trans.py 
-
-python manage.py migrate
-
-python manage.py loaddata genres.json movies.json 
-
-'''

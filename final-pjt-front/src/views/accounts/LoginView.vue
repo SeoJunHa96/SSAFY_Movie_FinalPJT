@@ -14,6 +14,7 @@ const logIn = function() {
     store.logIn(payload)
 }
 
+
 </script>
 
 <template>

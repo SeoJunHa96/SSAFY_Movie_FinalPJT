@@ -6,27 +6,37 @@
     <b-navbar toggleable="lg" type="white" variant="white">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
-        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-          <b-navbar-nav>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;" class="headersection">
+          <router-link to="/" class="logo-link">
+            <img src="@/assets/logo.png" alt="LOGO" style="width: 95px" />
+          </router-link>
+          <b-navbar-nav class="nav-menu">
             <router-link to="/profile" class="nav-link">My Profile</router-link>
             <router-link to="/movieview" class="nav-link">Recommend</router-link>
             <router-link to="/movierank" class="nav-link">Movie Ranking</router-link>
             <RouterLink :to="{ name:'CommunityView'}" class="nav-link">Review</RouterLink>
           </b-navbar-nav>
-          <router-link to="/" class="logo-link"><img src="@/assets/logo.png" alt="LOGO" style="width: 95px" /></router-link>
-          <div><RouterLink :to="{ name: 'LoginView' }">로그인</RouterLink> |
-            <RouterLink :to="{ name: 'SignUpView' }">회원가입</RouterLink>|
-            <a v-if="isLogin" @click="logOut" class="account-link">로그아웃</a>
-          </div> 
+          <div>
+            <template v-if="isLogin">
+              <button @click="logOut" class="accountbutton">로그아웃</button>
+            </template>
+            <template v-else>
+              <div class="auth-buttons">
+                <RouterLink :to="{ name: 'LoginView' }" class="account-link"><span class="accountbutton">로그인</span></RouterLink>
+                <RouterLink :to="{ name: 'SignUpView' }" class="account-link"><span class="accountbutton">회원가입</span></RouterLink>
+              </div>
+            </template>
+          </div>
         </div>
       </b-collapse>
     </b-navbar>
-    <div style="margin-top: 2rem;">
-      <hr>
+    <div>
+      <hr style="margin: 10px;">
       <RouterView />
     </div>
     <footer class="custom-footer">
-      <p>Project By<br />SEO JUN HA & JEONG SE JIN</p> <br />
+      <p>Project By<br />SEO JUN HA & JEONG SE JIN</p>
+      <br />
       <a href="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT" class="github-link">https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT</a>
     </footer>
   </div>
@@ -34,63 +44,99 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import { useCounterStore } from '@/stores/counter'
-
-const store = useCounterStore()
-
-const isLogin = store.isLogin
+import { useCounterStore } from '@/stores/counter';
+const store = useCounterStore();
+const isLogin = store.isLogin;
 
 const logOut = () => {
-    store.logOut()
-}
-
+  store.logOut();
+  location.reload(); // 새로고침
+};
 </script>
 
-<style lang="scss">
-@import '@/css/common.css';
-@import '@/css/reset.css';
-
-/* Add your scoped styles here */
-.navbar-custom {
-  background-color: rgb(255, 255, 255);
-  color: white;
-}
-
-/* Navbar links */
-.navbar-custom .navbar-nav .nav-link {
-  color: white;
-  font-weight: bold;
-}
-.logo-link {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.container {
+<style scoped>
+/* your existing styles */
+.headersection {
+  background: #fff;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding: 10px; /* 예시로 패딩값 조정 */
 }
 
-.custom-footer {
+.logo-link {
+  display: block;
+}
+
+.nav-menu .nav-link {
+  display: flex;
+  align-items: center;
+  margin: 0px 20px; /* 네비게이션 메뉴 간격 조정 */
+  font-size: 25px;
+  color: #282828;
+  text-decoration: none;
+  position: relative;
+  padding: 6px 12px;
+}
+
+.nav-menu .nav-link::after {
+  content: "";
+  position: absolute;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 4px;
+  background: #0000FF;
+  transition: all .3s ease-out;
+}
+
+.nav-menu .nav-link:hover::after {
   width: 100%;
-  text-align: center;
-  padding: 1rem 0;
-  background-color: lightgray;
-  font-size: 0.6em;
 }
 
-.custom-footer p {
-  margin: 0;
+.account-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 40px;
+  height: 70px;
+  width: 120px;
+  position: relative;
+  transition: background-color 0.3s;
 }
 
-.github-link {
-  color: inherit; 
-  text-decoration: none; 
-  font-style: italic; 
-  display: block; 
+.accountbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 40px;
+  height: 70px;
+  width: 120px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.account-link:hover {
+  background-color: #333;
+  color: #00ff0d;
+  cursor: pointer;
+}
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+.accountbutton:hover {
+  background-color: #333;
+  color: #00ff0d;
+  cursor: pointer;
 }
 </style>
