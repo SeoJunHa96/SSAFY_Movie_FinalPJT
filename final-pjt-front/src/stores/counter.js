@@ -20,14 +20,13 @@ export const useCounterStore = defineStore('counter', () => {
   })
 
   const signUp = function (payload) {
-    const { username, password1, password2} = payload
-    
+    const { username, nickname, password1, password2} = payload
     axios({
       method: 'post',
       url: `${API_URL}/accounts/signup/`,
       data: {
-        username, password1, password2,
-      }
+        username, nickname, password1, password2,
+      },
     })
       .then((res) => {
         console.log(res)
@@ -57,30 +56,24 @@ export const useCounterStore = defineStore('counter', () => {
       .catch((err) => console.log(err))
   }
   
-  const logOut = function() {
-    // 로그아웃 API 호출
+  const logOut = function () {
     axios({
-        method: 'post',
-        url: `${API_URL}/accounts/logout/`,
-        // 로그아웃 요청 시 토큰 또는 인증 정보 전달 가능
-        headers: {
-            Authorization: `Token ${token.value}` // 토큰 또는 인증 정보
-        }
+      method: 'post',
+      url: `${API_URL}/accounts/logout/`,
     })
-    .then(() => {
-        // 로그아웃 후 클라이언트 측에서 로컬 스토리지에 저장된 토큰 등 제거
-        token.value = null;
-        // 다른 클라이언트 정보 제거 (예: 쿠키)
-        // ...
-        router.push({ name: 'home' }); // 로그인 페이지로 이동
-    })
-    .catch((err) => console.log(err));
-}
+      .then((res) => {
+        token.value = null
+        router.push({ name: 'ArticleView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
 const getArticles = function () {
   axios({
     method: 'get',
-    url: `${API_URL}/community/articles/`,
+    url: `${API_URL}/community/article_list_create/`,
     headers: {
       Authorization: `Token ${token.value}`
     }

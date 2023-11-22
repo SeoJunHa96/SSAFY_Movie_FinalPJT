@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'rest_framework_simplejwt',
+
+    'drf_spectacular',
+
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,12 +62,22 @@ REST_FRAMEWORK = {
     # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES' : [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-#     # permission
+    # permission
     'DEFAULT_PERMISSION_CLASSES' : [
-        'rest_framework.permissions.AllowAny'
+        'rest_framework.permissions.IsAuthenticated', # 인증 확인
+        'rest_framework.permissions.AllowAny' # 누구나 접근
     ],
+
+    # spectacular Settings
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE' : 20,
 }
+REST_USE_JWT = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -154,4 +168,19 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
 AUTH_USER_MODEL = 'accounts.User'
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegistrationSerializer',
+}
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'

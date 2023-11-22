@@ -9,9 +9,9 @@
         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
           <b-navbar-nav>
             <router-link to="/profile" class="nav-link">My Profile</router-link>
-            <router-link to="/movies" class="nav-link">Recommend</router-link>
+            <router-link to="/movieview" class="nav-link">Recommend</router-link>
             <router-link to="/movierank" class="nav-link">Movie Ranking</router-link>
-            <RouterLink :to="{ name:'CommunityView'}">Review</RouterLink>
+            <RouterLink :to="{ name:'CommunityView'}" class="nav-link">Review</RouterLink>
           </b-navbar-nav>
           <router-link to="/" class="logo-link"><img src="@/assets/logo.png" alt="LOGO" style="width: 95px" /></router-link>
           <div><RouterLink :to="{ name: 'LoginView' }">로그인</RouterLink> |

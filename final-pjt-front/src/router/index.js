@@ -11,10 +11,15 @@ import MovieView from '@/views/movie/MovieView.vue'
 import MovieRankView from '@/views/movie/MovieRankView.vue'
 import MoviePopular from '@/components/movie/MoviePopular.vue'
 import MovieVote from '@/components/movie/MovieVote.vue'
+import MoviePage from '@/views/movie/MoviePage.vue'
+import MovieInfo from '@/components/InformConts.vue'
 
 import CommunityView from '@/views/community/CommunityView.vue'
 import CommunityDetailView from '@/views/community/CommunityDetailView.vue'
 import CreateView from '@/views/community/CreateView.vue'
+
+import MovieDetailView from '@/views/movie/MovieDetailView.vue'
+import ActorView from '@/views/movie/ActorView.vue'
 
 
 const router = createRouter({
@@ -46,9 +51,19 @@ const router = createRouter({
       component: MyProfileView,
     },
     {
-      path: '/movies',
+      path: '/movieview',
       name: 'MovieView',
       component: MovieView,
+    },
+    {
+      path: '/moviepage',
+      name: 'Moviepage',
+      component: MoviePage,
+    },
+    {
+      path: '/inform',
+      name: 'MovieInform',
+      component: MovieInfo,
     },
     {
       path: '/movierank',
@@ -79,7 +94,17 @@ const router = createRouter({
       path:'/movierank/vote',
       name: 'movievote',
       component: MovieVote
-    }
+    },
+    {
+      path:'/movies/:id',
+      name: 'movieDetail',
+      component: MovieDetailView
+    },
+    {
+      path:'/actors/:id',
+      name: 'actorView',
+      component: ActorView
+    },
 
   ]
 })

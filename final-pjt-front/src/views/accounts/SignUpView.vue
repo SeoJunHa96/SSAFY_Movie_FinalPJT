@@ -5,6 +5,9 @@
         <label for="username">username: </label>
         <input type="text" id="username" v-model.trim="username">
 
+        <label for="nickname">nickname: </label>
+        <input type="text" id="nickname" v-model.trim="nickname">
+
         <label for="password1">비밀번호: </label>
         <input type="password" id="password1" v-model.trim="password1">
 
@@ -21,12 +24,14 @@
   
   const store = useCounterStore()
   const username = ref(null)
+  const nickname = ref(null)
   const password1 = ref(null)
   const password2 = ref(null)
   
   const signUp = function () {
     const payload = {
       username: username.value,
+      nickname: nickname.value,
       password1: password1.value,
       password2: password2.value
     }
