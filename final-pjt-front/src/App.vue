@@ -46,7 +46,10 @@ const logOut = () => {
 
 </script>
 
-<style scoped>
+<style lang="scss">
+@import '@/css/common.css';
+@import '@/css/reset.css';
+
 /* Add your scoped styles here */
 .navbar-custom {
   background-color: rgb(255, 255, 255);

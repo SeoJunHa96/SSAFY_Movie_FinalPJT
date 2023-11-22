@@ -563,11 +563,7 @@
   }
   
   @media screen and (max-width: 600px) {
-    /* ----------AppHeader---------- */
-    .appHeader {
-      text-align: center;
-    }
-  
+
     /* ----------MainConts---------- */
     .mainConts {
       width: 350px;
