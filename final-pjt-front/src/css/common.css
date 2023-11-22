@@ -59,7 +59,7 @@
   .mainConts > .checkbox > label {
     margin: 0 10px 10px;
     padding: 5px 10px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
     font-size: 17px;
     cursor: pointer;
     position: relative;
@@ -67,7 +67,7 @@
   .mainConts > .checkbox > label + label:after {
     content: "";
     display: block;
-    border-left: 2px solid rgba(255, 255, 255, 0.3);
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
     width: 0px;
     height: 15px;
     position: absolute;
@@ -79,7 +79,8 @@
     display: none;
   }
   .mainConts > .checkbox > .checkStyle {
-    color: #fac61c;
+    color: white;
+    background: purple;
   }
   
   .mainConts > .inputBox {
@@ -87,7 +88,7 @@
     position: relative;
   }
   .mainConts > .inputBox > input {
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(128, 0, 128, 0.3);
     border-radius: 100px;
     width: 100%;
     height: 100%;
@@ -96,13 +97,13 @@
   }
   .mainConts > .inputBox > input:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(128, 0, 128, 0.5);
   }
   .mainConts > .inputBox > button {
     border: none;
     width: 10%;
     height: 75%;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(128, 0, 128, 0.3);
     background-color: transparent;
     position: absolute;
     top: 50%;
@@ -110,7 +111,7 @@
     transform: translateY(-50%);
   }
   .mainConts > .inputBox > button:hover {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(128, 0, 128, 0.7);
   }
   .mainConts > .inputBox > button:focus {
     outline: none;
@@ -122,7 +123,7 @@
     margin: 0 auto;
   }
   .genreBtnBox > .genreBtn {
-    margin-top: 100px;
+    margin-top: 50px;
   }
   .genreBtnBox > .genreBtn > p > span {
     margin: 0 5px;
@@ -134,11 +135,11 @@
     height: 40px;
     margin: 15px 2%;
     font-size: 15px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
   }
   .genreBtnBox > .genreBtn > button:hover {
     color: rgba(255, 255, 255, 1);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
   }
   
   /* ----------MovieConts---------- */
@@ -147,10 +148,10 @@
     padding: 0px 50px;
   }
   .movieConts > h2 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     height: 50px;
     margin: 20px 0;
-    padding: 5px 20px 5px 40px;
+    padding: 5px 40px 5px 40px;
     text-align: center;
     display: inline-block;
     position: absolute;
@@ -179,17 +180,17 @@
     font-size: 13px;
   }
   .movieConts > .gomainBtn {
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     padding: 3px 10px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
     background-color: transparent;
   }
   .movieConts > .gomainBtn:focus {
     outline: none;
   }
   .movieConts > .gomainBtn:hover {
-    border-color: rgba(255, 255, 255, 0.7);
-    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.7);
+    color: rgba(0, 0, 0, 0.7);
   }
   .movieConts > .gomainBtn > span.arrow {
     font-size: 20px;
@@ -202,6 +203,7 @@
   
   .movieConts > .dataBox {
     width: 100%;
+    background-color: skyblue;
   }
   .movieConts > .dataBox > .movies {
     padding: 30px 0 50px;
@@ -405,11 +407,11 @@
   }
   
   .infromConts > .detailBox > .movieStlls {
-    border-top: 2px solid rgba(255, 255, 255, 0.3);
     padding: 50px 0;
     overflow: scroll;
   }
   .infromConts > .detailBox > .movieStlls > p {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     padding: 0 20px 20px;
     font-size: 17px;
   }
@@ -432,11 +434,11 @@
   }
   
   .infromConts > .detailBox > .movieActor {
-    border-top: 2px solid rgba(255, 255, 255, 0.3);
     padding: 50px 20px;
     position: relative;
   }
   .infromConts > .detailBox > .movieActor > p {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     padding-bottom: 20px;
     font-size: 17px;
   }
@@ -458,7 +460,7 @@
   .infromConts > .detailBox > .movieActor > button {
     border: none;
     padding: 5px 10px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     position: absolute;
     bottom: 5px;
     left: 20px;

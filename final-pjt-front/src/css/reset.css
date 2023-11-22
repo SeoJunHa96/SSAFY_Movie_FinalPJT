@@ -28,10 +28,10 @@ button {
 	font-size: 90%;
 	margin: 0;
 	cursor: pointer;
-	color:rgba(255, 255, 255, .7);
+	color:rgba(128, 128, 128, 0.7);
 }
 
 a, input{
-	color:rgba(255, 255, 255, .6);
+	color:rgba(0, 0, 0, .6);
 }
 
