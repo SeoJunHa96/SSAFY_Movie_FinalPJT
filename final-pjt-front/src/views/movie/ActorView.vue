@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main-container">
       <h1>배우 정보</h1>
       <div v-if="actor" class="actor-container">
         <div class="profile-container">
@@ -93,6 +93,10 @@
     </script>
     
     <style scoped>
+    .main-container {
+  margin-left: 50px;
+  margin-right: 50px;
+}
     .actor-container {
       display: flex;
     }

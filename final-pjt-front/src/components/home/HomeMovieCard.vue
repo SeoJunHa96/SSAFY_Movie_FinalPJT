@@ -49,17 +49,12 @@ const goMovie = (movie) => {
 
 .movie-poster {
   max-width: 200px; /* 포스터 최대 너비 */
+  max-height: 300px; /* 포스터 최대 높이 */
   height: auto;
   display: block;
   margin: 0 auto; /* 가운데 정렬 */
 }
 
-.movie-poster {
-  max-width: 200px; /* 포스터 최대 너비 */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* 가운데 정렬 */
-}
 .movie-info {
   display: none;
   position: absolute;

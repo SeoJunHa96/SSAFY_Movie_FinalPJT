@@ -1,117 +1,129 @@
 <template>
-  <div>
-    <h1>영화 정보</h1>
-    <div v-if="movie" class="movie-container">
-      <div class="poster-container">
-        <img :src="getPosterUrl(movie.poster_path)" alt="movie_poster">
-      </div>
-      <div class="info-container">
-        <p>제목 : {{ movie.title }}</p>
-        <p>개봉일 : {{ movie.release_date }}</p>
-        <p>인지도 : {{ movie.popularity }}</p>
-        <p>상영시간 : {{ movie.runtime }}</p>
-        <p>장르 : 
-        <span v-for="(genre, index) in movie.genres" :key="genre.id">
-            {{ genre.name }}<span v-if="index !== movie.genres.length - 1">, </span>
-        </span>
-        </p>
-        <p>줄거리 : {{ movie.overview }}</p>
-      </div>
-    </div>
-    <hr>
-    <h2>출연 배우</h2>
-    <div class="actor-cards">
-      <ActorList
-        v-for="actor in actors"
-        :key="actor.id"
-        :actor="actor"
-        class="actor-card"
-      />
+  <div class="main-container">
+    <div>
+      <h1>최근 개봉한 영화</h1>
+      <Swiper
+        :modules="swiperOptions.modules"
+        :centered-slides="true"
+        :loop="true"
+        :slides-per-view="swiperOptions.slidesPerView"
+        :space-between="swiperOptions.spaceBetween"
+        :navigation="swiperOptions.navigation"
+        @swiper="swiperOptions.onSwiper"
+        @slideChange="swiperOptions.onSlideChange"
+      >
+      <SwiperSlide  v-for="movie in newMovies" :key="movie.id">
+        <HomeMovieCard
+          v-if="movie.poster_path"
+          :key="movie.id"
+          :movie="movie"
+        />
+      </SwiperSlide>      
+      </Swiper>
+      <br><br>
+      <h1>곧 개봉될 영화</h1>
+      <Swiper
+        :modules="swiperOptions.modules"
+        :centered-slides="true"
+        :loop="true"
+        :slides-per-view="swiperOptions.slidesPerView"
+        :space-between="swiperOptions.spaceBetween"
+        :navigation="swiperOptions.navigation"
+        @swiper="swiperOptions.onSwiper"
+        @slideChange="swiperOptions.onSlideChange"
+      >
+      <SwiperSlide  v-for="movie in upcomingMovies" :key="movie.id">
+        <HomeMovieCard
+          v-if="movie.poster_path"
+          :key="movie.id"
+          :movie="movie"
+        />
+      </SwiperSlide>      
+      </Swiper>      
     </div>
   </div>
-<hr>
 </template>
-  
+
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import ActorList from '@/components/movie/ActorList.vue'
+import { ref, onMounted, computed } from 'vue';
+import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
+import 'swiper/swiper-bundle.css';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation } from 'swiper';
 
-const movie = ref([]);
-const actors = ref([]);
+// swiper 관련1
+const onSwiper = (swiper) => {
+  // console.log(swiper);
+};
+
+// swiper 관련2
+const onSlideChange = () => {
+  // console.log('slide change');
+};
+
+// swiper 관련3
+const swiperOptions = {
+  modules: [Navigation],
+  slidesPerView: 4,
+  spaceBetween: 50,
+  navigation: true,
+  onSwiper,
+  onSlideChange,
+};
+
+const apiKey = '3691eda9c0d72053e1652d747c826899';
+const currentDate = new Date();
+const tomorrowDate = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000)); // 현재 날짜로부터 1일 후 날짜 계산
+const pastDate = new Date(currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)); // 현재 날짜로부터 1주 이전 날짜 계산
+const futureDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 현재 날짜로부터 1주 후 날짜 계산
+
+const newMovies = ref([]);
+const upcomingMovies = ref([]);
 const loading = ref(true);
-const route = useRoute()
-const hoveredMovie = ref(null);
 
-const fetchMovieInfo = async () => {
-  const apiKey = '3691eda9c0d72053e1652d747c826899';
-  const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}?api_key=${apiKey}&language=ko-KR`;
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const fetchNewMovies = async () => {
+  const apiUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&region=KR&release_date.gte=${formatDate(pastDate)}&release_date.lte=${formatDate(currentDate)}&api_key=${apiKey}`;
 
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    movie.value = {
-      title: data.title,
-      release_date: data.release_date,
-      popularity: data.popularity,
-      runtime: data.runtime,
-      overview: data.overview,
-      poster_path: data.poster_path,
-      genres: data.genres,
-    }
-    loading.value = false;
+    newMovies.value = data.results.filter(movie => movie.poster_path);
+    loading.value = false
   } catch (error) {
     console.error('데이터 불러오기 오류:', error);
-    loading.value = false;
   }
 };
 
-const fetchActors = async () => {
-  const apiKey = '3691eda9c0d72053e1652d747c826899';
-  const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/credits?api_key=${apiKey}&language=ko-KR`;
+const fetchUpcomingMovies = async () => {
+  const apiUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&region=KR&release_date.gte=${formatDate(tomorrowDate)}&release_date.lte=${formatDate(futureDate)}&api_key=${apiKey}`;
 
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    actors.value = data.cast.slice(0,7);
-    loading.value = false;
+    upcomingMovies.value = data.results.filter(movie => movie.poster_path);
+    loading.value = false
   } catch (error) {
     console.error('데이터 불러오기 오류:', error);
-    loading.value = false;
   }
-};
-
-const getPosterUrl = (relativePath) => {
-  if (relativePath) {
-    return `https://image.tmdb.org/t/p/w500${relativePath}`;
-  }
-  return '';
 };
 
 onMounted(() => {
-  fetchMovieInfo();
-  fetchActors();
+  fetchNewMovies();
+  fetchUpcomingMovies();
 });
 
 </script>
-  
-<style scoped>
-  .movie-container {
-    display: flex;
-  }
-  
-  .poster-container {
-    margin-right: 20px;  /* 오른쪽으로 여유를 주어 포스터와 정보를 구분 */
-  }
-  
-  .info-container {
-    flex: 1;  /* 남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
-  }
 
-  .actor-card {
-  display: inline-block;
-  text-align: center;
-  margin: 10px;
-  }
+<style scoped>
+.main-container {
+  margin-left: 50px;
+  margin-right: 50px;
+}
 </style>
-  
