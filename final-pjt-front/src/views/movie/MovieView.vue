@@ -1,13 +1,14 @@
-<script setup>
-
-</script>
-
 <template>
     <div>
-        영화추천
+      <InputSearchForm></InputSearchForm>
+      <GenreSearchBtns></GenreSearchBtns>
     </div>
-</template>
-
-<style scoped>
-
-</style>
+  </template>
+  
+  <script setup>
+  import InputSearchForm from '@/components/search/InputSearchForm.vue';
+  import GenreSearchBtns from '@/components/search/GenreSearchBtns.vue';
+  </script>
+  
+  <style scoped>
+  </style>

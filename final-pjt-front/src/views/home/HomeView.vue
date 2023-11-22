@@ -1,151 +1,175 @@
 <template>
+  <div class="main-container">
     <div>
-
-      <div>
-        <h1>지금 상영중인 영화</h1>
-        <!-- <p>{{ movies }}</p>  -->
-
-            <div class="movie-cards">
-              <HomeMovieCard
-                  v-for="movie in movies"
-                  :key="movie.id"
-                  :movie="movie"
-                  class="movie-card"
-                />
-            </div>
-
-      </div>
-      <div class="search-bar" style="display: flex; justify-content: center; width: 100%; height: 40px; border: none; background-color: #fff;">
-        <input type="text" class="input" style="border: none; height: 40px; width: 500px;" placeholder="제목, 배우, 감독 등으로 검색하세요.">
-        <button type="submit" class="submit" style="width: 70px; height: 40px; background-color: #000; color: ; border-radius: 10px;">부트스트랩 아이콘으로 바꿀꺼야</button>
-        </div>
+      <h1>지금 상영 중인 영화</h1>
+      <Swiper
+        :modules="swiperOptions.modules"
+        :centered-slides="true"
+        :loop="true"
+        :slides-per-view="swiperOptions.slidesPerView"
+        :space-between="swiperOptions.spaceBetween"
+        :navigation="swiperOptions.navigation"
+        @swiper="swiperOptions.onSwiper"
+        @slideChange="swiperOptions.onSlideChange"
+      >
+      <SwiperSlide  v-for="movie in newMovies" :key="movie.id">
+        <HomeMovieCard
+          :key="movie.id"
+          :movie="movie"
+        />
+      </SwiperSlide>      
+      </Swiper>
+      <br><br>
+      <h1>곧 개봉될 영화</h1>
+      <Swiper
+        :modules="swiperOptions.modules"
+        :centered-slides="true"
+        :loop="true"
+        :slides-per-view="swiperOptions.slidesPerView"
+        :space-between="swiperOptions.spaceBetween"
+        :navigation="swiperOptions.navigation"
+        @swiper="swiperOptions.onSwiper"
+        @slideChange="swiperOptions.onSlideChange"
+      >
+      <SwiperSlide  v-for="movie in upcomingMovies" :key="movie.id">
+        <HomeMovieCard
+          :key="movie.id"
+          :movie="movie"
+        />
+      </SwiperSlide>      
+      </Swiper>      
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted, computed } from 'vue';
-  import { useRoute } from 'vue-router';
-  import router from '@/router';
-  import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
-  
-  const movies = ref([]);
-  const loading = ref(true);
-  const hoveredMovie = ref(null);
-  const route = useRoute()
-  
-  const fetchTopRatedMovies = async () => {
-    const apiKey = '3691eda9c0d72053e1652d747c826899';
-    const apiUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=ko-KR&page=1`;
-  
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      movies.value = data.results;
-      console.log(movies)
-      loading.value = false;
-    } catch (error) {
-      console.error('데이터 불러오기 오류:', error);
-      loading.value = false;
-    }
-  };
-  
-  onMounted(() => {
-    fetchTopRatedMovies();
-  });
-  
-  const getImageUrl = (relativePath) => {
-    if (relativePath) {
-      return `https://image.tmdb.org/t/p/w500${relativePath}`;
-    }
-    return '';
-  };
-  
-  const toggleCard = (id) => {
-    hoveredMovie.value = id;
-  };
-  
-  const goDetail = (movie) => {
-    router.push(`/movies/${movie.id}`);
-  };
-  
-  const searchTerm = ref('');
-  const searchResults = ref([]);
-  
-  const search = () => {
-    // 검색어를 API에 전달하여 검색 결과를 가져옵니다.
-    const apiKey = '3691eda9c0d72053e1652d747c826899';
-    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=ko-KR&query=${searchTerm.value}`;
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        searchResults.value = data.results;
-      });
-  };
-  
-  // 5개씩 아이템을 묶어서 보여주기 위한 계산된 속성 추가
-  const movieChunks = computed(() => {
-    const chunkSize = 5;
-    const result = [];
-    for (let i = 0; i < movies.value.length; i += chunkSize) {
-      result.push(movies.value.slice(i, i + chunkSize));
-    }
-    return result;
-  });
+  </div>
+</template>
 
-  const swiperOptions = {
-    slidesPerView: 1,
-    pagination: { 
-        el: '.swiper-pagination', 
-        clickable: true 
-    }, 
-    navigation: { 
-        nextEl: '.swiper-button-next', 
-        prevEl: '.swiper-button-prev' 
-    } 
+<script setup>
+import axios from 'axios';
+import { ref, onMounted, computed } from 'vue';
+import router from '@/router';
+import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
+import 'swiper/swiper-bundle.css';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation } from 'swiper';
+
+// swiper 관련1
+const onSwiper = (swiper) => {
+  console.log(swiper);
+};
+
+// swiper 관련2
+const onSlideChange = () => {
+  console.log('slide change');
+};
+
+// swiper 관련3
+const swiperOptions = {
+  modules: [Navigation],
+  slidesPerView: 4,
+  spaceBetween: 50,
+  navigation: true,
+  onSwiper,
+  onSlideChange,
+};
+
+const apiKey = '3691eda9c0d72053e1652d747c826899';
+const currentDate = new Date();
+const tomorrowDate = new Date(currentDate.getTime() + (24 * 60 * 60 * 1000)); // 현재 날짜로부터 1일 후 날짜 계산
+const pastDate = new Date(currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)); // 현재 날짜로부터 1주 이전 날짜 계산
+const futureDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 현재 날짜로부터 1주 후 날짜 계산
+
+const newMovies = ref([]);
+const upcomingMovies = ref([]);
+const moviesData = ref([]);
+const loading = ref(true);
+
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const fetchNewMovies = async () => {
+  const apiUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&region=KR&release_date.gte=${formatDate(pastDate)}&release_date.lte=${formatDate(currentDate)}&api_key=${apiKey}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    newMovies.value = data.results;
+    loading.value = false
+    console.log('New Movies:', newMovies);
+    // New Movies 데이터를 처리하는 로직을 작성하세요.
+  } catch (error) {
+    console.error('데이터 불러오기 오류:', error);
   }
-  </script>
-  
-  <style scoped>
-  .movie-item {
-    flex: 0 0 calc(20% - 20px); /* 5개 아이템을 한 줄에 배치하기 위한 스타일 */
-    margin: 10px;
+};
+
+const fetchUpcomingMovies = async () => {
+  const apiUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&region=KR&release_date.gte=${formatDate(tomorrowDate)}&release_date.lte=${formatDate(futureDate)}&api_key=${apiKey}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    upcomingMovies.value = data.results;
+    loading.value = false
+    console.log('Upcoming Movies:', upcomingMovies);
+    // Upcoming Movies 데이터를 처리하는 로직을 작성하세요.
+  } catch (error) {
+    console.error('데이터 불러오기 오류:', error);
   }
-  
-  .movie-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* 5개 아이템을 한 줄에 배치하기 위한 스타일 */
-  }
-  
-  .movie-card {
-    position: relative;
-    display: inline-block;
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .movie-poster {
-    max-width: 200px; /* 포스터 최대 너비 */
-    height: auto;
-    display: block;
-    margin: 0 auto; /* 가운데 정렬 */
-  }
-  
-  .movie-info {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 10px;
-  }
-  
-  .movie-card:hover .movie-info {
-    display: block;
-  }
-  </style>
-  
+};
+
+onMounted(() => {
+  fetchNewMovies();
+  fetchUpcomingMovies();
+});
+
+</script>
+
+<style scoped>
+.movie-item {
+  flex: 0 0 calc(20% - 20px); /* 5개 아이템을 한 줄에 배치하기 위한 스타일 */
+  margin: 10px;
+}
+
+.movie-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 5개 아이템을 한 줄에 배치하기 위한 스타일 */
+}
+
+.movie-card {
+  position: relative;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.movie-poster {
+  max-width: 200px; /* 포스터 최대 너비 */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.movie-info {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+}
+
+.movie-card:hover .movie-info {
+  display: block;
+}
+
+.main-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+</style>

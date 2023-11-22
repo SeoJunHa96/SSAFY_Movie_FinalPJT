@@ -1,4 +1,5 @@
 <script setup>
+import router from '@/router'
 defineProps({
     movie: Object
 })
@@ -10,7 +11,6 @@ const getPosterUrl = (relativePath) => {
     return '';
   };
 
-import router from '@/router'
 const goMovie = (movie) => {
     router.push(`/movies/${movie.id}`);
   };

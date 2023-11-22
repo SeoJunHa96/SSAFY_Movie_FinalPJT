@@ -29,7 +29,7 @@
   const createArticle = function () {
     axios({
       method: 'post',
-      url: `${store.API_URL}/community/articles/`,
+      url: `${store.API_URL}/community/article_list_create/`,
       data: {
         title: title.value,
         content: content.value

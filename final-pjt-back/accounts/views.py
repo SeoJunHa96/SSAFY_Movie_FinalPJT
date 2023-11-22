@@ -1,102 +1,107 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import update_session_auth_hash
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .serializers import UserSerializer
+from django.contrib.auth import login
+from django.shortcuts import redirect
+import requests
 
-# Create your views here.
 
-def login(request):
-    if request.user.is_authenticated:
-        return redirect('articles:index')
-    
-    if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            auth_login(request, form.get_user())
-            return redirect('articles:index')
-    else:
-        form = AuthenticationForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'accounts/login.html', context)
 
-@login_required
-def logout(request):
-    auth_logout(request)
-    return redirect('articles:index')
-
+@api_view(['POST'])
 def signup(request):
-    if request.user.is_authenticated:
-        return redirect('articles:index')
-
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('articles:index')
+    print(request.data)
+    password = request.data.get('password')
+    password_confirmation = request.data.get('passwordConfirmation')
+    
+    if password != password_confirmation:
+        return Response({ 'error': '비밀번호가 일치하지 않습니다.'})
     else:
-        form = CustomUserCreationForm()
-    context = {
-        'form': form,
-    }
-    return render(request, 'accounts/signup.html', context)
+        serializer = UserSerializer(data=request.data)
 
-@login_required
-def delete(request):
-    request.user.delete()
-    auth_logout(request)
-    return redirect('articles:index')
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.save()
+            nickname = request.data.get('nickname') 
+            email = request.data.get('email')
+            user.email = email
+            user.nickname = nickname
+            user.save()
 
-@login_required
-def update(request):
-    if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('articles:index')
-    else:
-        form = CustomUserChangeForm(instance=request.user)
-    context = {
-        'form': form,
-    }
-    return render(request, 'accounts/update.html', context)
+            return Response(serializer.data)
 
-@login_required
-def change_password(request, user_pk):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            return redirect('articles:index')
-    else:
-        form = PasswordChangeForm(request.user)
-    context = {
-        'form': form,
-    }
-    return render(request, 'accounts/change_password.html', context)
 
-def profile(request, username):
-    User = get_user_model()
-    person = User.objects.get(username=username)
-    context = {
-        'person': person,
-    }
-    return render(request, 'accounts/profile.html', context)
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def my_profile(request):
 
-@login_required
-def follow(request, user_pk):
-    User = get_user_model()
-    person = User.objects.get(pk=user_pk)
-    if person != request.user:
-        if person.followers.filter(pk=request.user.pk).exists():
-            person.followers.remove(request.user)
+    user = get_object_or_404(get_user_model(), pk=request.data.get('user_id'))
+    serializer = UserSerializer(user)
+
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def profile(request, user_pk):
+    print(request.data)
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def users(request):
+    users = get_user_model().objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def user(request, my_pk):
+    user = get_object_or_404(get_user_model(), pk=my_pk)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def follow(request, my_pk, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    me = get_object_or_404(get_user_model(), pk=my_pk)
+    if person != me:
+        if me.followings.filter(pk=person.pk).exists():
+            me.followings.remove(person)
+            following = False
         else:
-            person.followers.add(request.user)
-    return redirect('accounts:profile', person.username)
+            me.followings.add(person)
+            following = True
+        return Response(following)
+
+
+@api_view(['POST'])
+def is_follow(request, my_pk, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    me = get_object_or_404(get_user_model(), pk=my_pk)
+    if person != me:
+        if me.followings.filter(pk=person.pk).exists():
+            following = True
+        else:
+            following = False
+        return Response(following)
+
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def users_info(request):
+    users = request.data.get('users')
+    movies = []
+    for user in users:
+        user = get_object_or_404(get_user_model(), pk=user)
+        serializer = UserSerializer(user)
+
+    return Response(movies)

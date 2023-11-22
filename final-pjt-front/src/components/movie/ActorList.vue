@@ -1,4 +1,5 @@
 <script setup>
+import router from '@/router';
 defineProps({
     actor: Object
 })
@@ -10,7 +11,6 @@ const getProfileUrl = (relativePath) => {
     return '';
   };
 
-import router from '@/router';
 
 const goActor = (actor) => {
     router.push(`/actors/${actor.id}`);

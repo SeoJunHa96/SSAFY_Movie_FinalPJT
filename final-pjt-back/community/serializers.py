@@ -10,27 +10,60 @@ class UserSerializer(serializers.ModelSerializer):
 
 # 게시글 목록
 class ArticleListSerializer(serializers.ModelSerializer):
+    userName = serializers.SerializerMethodField()
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
+    def get_userName(self,obj):
+        return obj.user.username
+
     class Meta:
         model = Article
-        fields = ('id', 'title', 'content',)        
+        fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'user', 'userName',)
+        read_only_fields = ('user',)
 
-# 댓글
-class CommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    article = ArticleListSerializer(read_only=True)
-
-    class Meta:
-        model = Comment
-        fields = ('pk', 'user', 'content', 'article',)
-        # read_only_fields = ('article', 'user',)
+# class CommentSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Comment
+#         fields = '__all__'
+#         read_only_fields = ('article', )
 
 # 게시글 자세히
 class ArticleSerializer(serializers.ModelSerializer):
-    comment_set = CommentSerializer(many=True, read_only=True)
-    comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
-    user = UserSerializer(read_only=True)
+    userName = serializers.SerializerMethodField()
+
+    def get_userName(self,obj):
+        return obj.user.username
 
     class Meta:
         model = Article
-        fields = '__all__'
-        # read_only_fields = ('user',)
+        fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'user', 'userName',)
+        read_only_fields = ('user',)
+
+
+class CommentListSerializer(serializers.ModelSerializer):
+    userName = serializers.SerializerMethodField()
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  
+    def get_userName(self,obj):
+        return obj.user.username
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'userName', 'user', 'content', 'created_at', 'updated_at', 'community',)
+        read_only_fields = ('user','community',)
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    userName = serializers.SerializerMethodField()
+  
+    def get_userName(self,obj):
+        return obj.user.username
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'userName', 'user', 'content', 'created_at', 'updated_at', 'community',)
+        read_only_fields = ('user','community',)
+
+

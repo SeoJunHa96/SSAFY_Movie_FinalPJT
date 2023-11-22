@@ -21,81 +21,81 @@
     <hr>
     <h2>출연 배우</h2>
     <div class="actor-cards">
-        <ActorList
-            v-for="actor in actors"
-            :key="actor.id"
-            :actor="actor"
-            class="actor-card"
-        />
+      <ActorList
+        v-for="actor in actors"
+        :key="actor.id"
+        :actor="actor"
+        class="actor-card"
+      />
     </div>
   </div>
 <hr>
 </template>
   
-  <script setup>
-  import axios from 'axios'
-  import { onMounted, ref } from 'vue'
-  import { useRoute } from 'vue-router'
-  import ActorList from '@/components/movie/ActorList.vue'
-  
-  const movie = ref([]);
-  const actors = ref([]);
-  const loading = ref(true);
-  const route = useRoute()
-  const hoveredMovie = ref(null);
-  
-  const fetchMovieInfo = async () => {
-    const apiKey = '3691eda9c0d72053e1652d747c826899';
-    const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}?api_key=${apiKey}&language=ko-KR`;
-  
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      movie.value = {
-        title: data.title,
-        release_date: data.release_date,
-        popularity: data.popularity,
-        runtime: data.runtime,
-        overview: data.overview,
-        poster_path: data.poster_path,
-        genres: data.genres,
-      }
-      loading.value = false;
-    } catch (error) {
-      console.error('데이터 불러오기 오류:', error);
-      loading.value = false;
-    }
-  };
+<script setup>
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import ActorList from '@/components/movie/ActorList.vue'
 
-  const fetchActors = async () => {
-    const apiKey = '3691eda9c0d72053e1652d747c826899';
-    const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/credits?api_key=${apiKey}&language=ko-KR`;
-  
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      actors.value = data.cast.slice(0,7);
-      loading.value = false;
-    } catch (error) {
-      console.error('데이터 불러오기 오류:', error);
-      loading.value = false;
-    }
-  };
+const movie = ref([]);
+const actors = ref([]);
+const loading = ref(true);
+const route = useRoute()
+const hoveredMovie = ref(null);
 
-  const getPosterUrl = (relativePath) => {
-    if (relativePath) {
-      return `https://image.tmdb.org/t/p/w500${relativePath}`;
+const fetchMovieInfo = async () => {
+  const apiKey = '3691eda9c0d72053e1652d747c826899';
+  const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}?api_key=${apiKey}&language=ko-KR`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    movie.value = {
+      title: data.title,
+      release_date: data.release_date,
+      popularity: data.popularity,
+      runtime: data.runtime,
+      overview: data.overview,
+      poster_path: data.poster_path,
+      genres: data.genres,
     }
-    return '';
-  };
+    loading.value = false;
+  } catch (error) {
+    console.error('데이터 불러오기 오류:', error);
+    loading.value = false;
+  }
+};
+
+const fetchActors = async () => {
+  const apiKey = '3691eda9c0d72053e1652d747c826899';
+  const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/credits?api_key=${apiKey}&language=ko-KR`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    actors.value = data.cast.slice(0,7);
+    loading.value = false;
+  } catch (error) {
+    console.error('데이터 불러오기 오류:', error);
+    loading.value = false;
+  }
+};
+
+const getPosterUrl = (relativePath) => {
+  if (relativePath) {
+    return `https://image.tmdb.org/t/p/w500${relativePath}`;
+  }
+  return '';
+};
+
+onMounted(() => {
+  fetchMovieInfo();
+  fetchActors();
+});
+
+</script>
   
-  onMounted(() => {
-    fetchMovieInfo();
-    fetchActors();
-  });
-  </script>
-  
-  <style scoped>
+<style scoped>
   .movie-container {
     display: flex;
   }
@@ -113,5 +113,5 @@
   text-align: center;
   margin: 10px;
   }
-  </style>
+</style>
   
