@@ -53,7 +53,6 @@ import { Navigation } from 'swiper';
 
 // swiper 관련1
 const onSwiper = (swiper) => {
-  console.log(swiper);
 };
 
 // swiper 관련2
@@ -97,7 +96,6 @@ const fetchNewMovies = async () => {
     const data = await response.json();
     newMovies.value = data.results;
     loading.value = false
-    console.log('New Movies:', newMovies);
     // New Movies 데이터를 처리하는 로직을 작성하세요.
   } catch (error) {
     console.error('데이터 불러오기 오류:', error);
@@ -112,8 +110,6 @@ const fetchUpcomingMovies = async () => {
     const data = await response.json();
     upcomingMovies.value = data.results;
     loading.value = false
-    console.log('Upcoming Movies:', upcomingMovies);
-    // Upcoming Movies 데이터를 처리하는 로직을 작성하세요.
   } catch (error) {
     console.error('데이터 불러오기 오류:', error);
   }

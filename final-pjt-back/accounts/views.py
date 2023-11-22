@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from rest_framework.authtoken.models import Token
 import requests
 from django.contrib.auth.decorators import login_required
-
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny
 
 @permission_classes([AllowAny])
@@ -73,6 +73,8 @@ def my_profile(request):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_my_profile(request):
     user = request.user
     serializer = UserSerializer(user)
