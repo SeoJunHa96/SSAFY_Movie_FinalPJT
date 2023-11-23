@@ -94,11 +94,15 @@
     });
     </script>
     
-    <style scoped>
+<style scoped>
+    @font-face {
+  font-family: 'maple';
+  src: url('@/assets/MaplestoryLight.ttf');
+}
     .main-container {
   margin-top: 25px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
 }
@@ -107,10 +111,12 @@
   padding-top: 20px;
   margin-left: 50px;
   padding-bottom: 10px;
+  font-family: 'maple';
 }
   .actor-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    margin-left: 50px;
   }
   
   .profile-container {
@@ -118,7 +124,7 @@
   }
   
   .info-container {
-    margin: 30px;
+    margin: 25px 100px;
     width: 500px;
   }
   
@@ -133,5 +139,5 @@
     height: 350px;
     margin: auto 10px;
     }
-    </style>
+</style>
     

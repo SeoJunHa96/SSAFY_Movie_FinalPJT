@@ -97,6 +97,10 @@ onMounted(() => {
 </script>
   
 <style scoped>
+@font-face {
+  font-family: 'maple';
+  src: url('@/assets/MaplestoryLight.ttf');
+}
 .main-container {
   margin-top: 25px;
   margin-left: 100px;
@@ -110,10 +114,12 @@ onMounted(() => {
   padding-top: 20px;
   margin-left: 50px;
   padding-bottom: 10px;
+  font-family: 'maple';
 }
   .movie-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    margin-left: 50px;
   }
   
   .poster-container {
@@ -122,7 +128,7 @@ onMounted(() => {
   
   .info-container {
     /* flex: 1;  남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
-    margin: 30px;
+    margin: 25px 100px;
     width: 500px;
   }
   .info-container > .title {
