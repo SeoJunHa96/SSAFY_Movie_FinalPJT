@@ -59,7 +59,7 @@
 .mainConts > .checkbox > label {
   margin: 0 10px 10px;
   padding: 5px 10px;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.7);
   font-size: 17px;
   cursor: pointer;
   position: relative;
@@ -129,6 +129,7 @@
 }
 .genreBtnBox > .genreBtn > p > span {
   margin: 0 5px;
+  font-weight: bold;
 }
 .genreBtnBox > .genreBtn > button {
   border: none;
@@ -152,7 +153,7 @@
 .movieConts > .titleBox {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 .movieConts > .titleBox > h2 { 
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -184,7 +185,7 @@
   height: 40px;
   margin: 15px;
   font-size: 15px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .movieConts > .titleBox > button:hover {
   color: rgba(255, 255, 255, 1);
@@ -199,7 +200,7 @@
   font-size: 13px;
 }
 .movieConts > .gomainBtn {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   padding: 3px 10px;
   color: rgba(0, 0, 0, 0.5);
   background-color: transparent;
@@ -208,8 +209,8 @@
   outline: none;
 }
 .movieConts > .gomainBtn:hover {
-  border-color: rgba(0, 0, 0, 0.7);
-  color: rgba(0, 0, 0, 0.7);
+  border-color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 .movieConts > .gomainBtn > span.arrow {
   font-size: 20px;
@@ -232,12 +233,13 @@
 
 .movieConts > .dataBox > .movies > .movieBox {
   margin: 0 10px;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 5px;
 }
 .movieConts > .dataBox > .movies > .movieBox > .imgTitle {
   width: 228px;
   height: 318px;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
   position: relative;
 }
@@ -286,10 +288,13 @@
 .movieConts > .dataBox > .movies > .movieBox > .title > span {
   font-size: 15px;
   display: block;
+  margin-left: 5px;
 }
 .movieConts > .dataBox > .movies > .movieBox > .title > span.year {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 5px;
+  margin-left: 5px;
 }
 .movieConts > .dataBox > .nodataTxt {
   margin-top: 100px;
@@ -302,6 +307,7 @@
   max-width: 1000px;
   margin: 50px auto 0;
   padding: 20px;
+  background-color: rgba(255, 255, 255, .5);
 }
 .infromConts > .topData {
   outline: 0px solid blue;
@@ -357,7 +363,7 @@
 }
 .infromConts > .topData > .summaryBox > .textBox > a {
   margin-top: 10px;
-  color: #fac61c; /*color:#206de0;*/
+  color: orange; /*color:#206de0;*/
   display: inline-block;
 } /* 상세정보 링크 */
 .infromConts > .topData > .summaryBox > .likeScoreBox {

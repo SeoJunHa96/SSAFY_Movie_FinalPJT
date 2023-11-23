@@ -1,6 +1,7 @@
 <template>
     <div class="main-container">
       <h1>배우 정보</h1>
+      <hr>
       <div v-if="actor" class="actor-container">
         <div class="profile-container">
           <img :src="getProfileUrl(actor.profile_path)" alt="actor_img">
@@ -16,8 +17,8 @@
           <p>소개 : {{ actor.biography }}</p>
         </div>
       </div>
-      <hr>
       <h2>필모그래피</h2>
+      <hr>
       <div class="movie-cards">
           <MovieList
               v-for="movie in movies"
@@ -81,7 +82,7 @@
   
     const getProfileUrl = (relativePath) => {
       if (relativePath) {
-        return `https://image.tmdb.org/t/p/w500${relativePath}`;
+        return `https://image.tmdb.org/t/p/w400${relativePath}`;
       }
       return '';
     };
@@ -94,25 +95,46 @@
     
     <style scoped>
     .main-container {
+  margin-top: 25px;
   margin-left: 50px;
   margin-right: 50px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
 }
-    .actor-container {
-      display: flex;
-    }
-    
-    .profile-container {
-      margin-right: 20px;  /* 오른쪽으로 여유를 주어 포스터와 정보를 구분 */
-    }
-    
-    .info-container {
-      flex: 1;  /* 남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
-    }
+.main-container > h1,
+.main-container > h2 {
+  padding-top: 20px;
+  margin-left: 20px;
+  padding-bottom: 10px;
+}
+  .actor-container {
+    display: flex;
+    justify-content: center;
+  }
   
+  .profile-container {
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  .info-container {
+    width: 500px;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+    .movie-cards {
+    display: flex;
+    text-align: center;
+    }
     .movie-card {
     display: inline-block;
     text-align: center;
-    margin: 10px;
+    width: 250px;
+    height: 350px;
+    margin: auto 10px;
     }
     </style>
     

@@ -55,7 +55,7 @@
   export default {
       setup() {
           
-          const genre = ref(['애니메이션', '역사', '코메디', '드라마', 'SF', '사회', '액션', '로맨스']);
+          const genre = ref(['애니메이션', '역사', '코메디', '드라마', 'SF', '공포', '액션', '로맨스']);
           const router = useRouter();
           
   
