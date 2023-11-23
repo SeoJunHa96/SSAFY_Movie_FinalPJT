@@ -8,12 +8,13 @@
         </div>
         <div class="info-container">
           <p>이름 : {{ actor.name }}</p>
-          <p>생일 : {{ actor.birthday }} ({{ actor.place_of_birth }})</p>
-          <p v-if="actor.deathday">사망 : {{ actor.deathday }}</p>
           <p>성별 : 
             <span v-if="actor.gender === 1">여</span>
             <span v-else-if="actor.gender === 2">남</span>
           </p>
+          <p>생일 : {{ actor.birthday }}</p>
+          <p v-if="actor.deathday">사망 : {{ actor.deathday }}</p>
+          <p v-if="actor.place_of_birth">출생지 : {{ actor.place_of_birth }}</p>
           <p>소개 : {{ actor.biography }}</p>
         </div>
       </div>
@@ -104,7 +105,7 @@
 .main-container > h1,
 .main-container > h2 {
   padding-top: 20px;
-  margin-left: 20px;
+  margin-left: 50px;
   padding-bottom: 10px;
 }
   .actor-container {
@@ -113,16 +114,12 @@
   }
   
   .profile-container {
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 10px;
   }
   
   .info-container {
+    margin: 30px;
     width: 500px;
-    margin-top: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
   }
   
     .movie-cards {

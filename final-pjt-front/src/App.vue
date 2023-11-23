@@ -95,7 +95,7 @@ const logOut = () => {
   transform: translateX(-50%);
   width: 0%;
   height: 4px;
-  background: #0000FF;
+  background: #262652;
   transition: all .3s ease-out;
 }
 
