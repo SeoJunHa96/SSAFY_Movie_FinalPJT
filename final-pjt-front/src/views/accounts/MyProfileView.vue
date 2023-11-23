@@ -1,10 +1,15 @@
 <template>
   <div>
     <h1>사용자 정보</h1>
-    <p v-if="isLoading">로딩 중...</p>
-    <div v-else-if="userInfo">
-      <p>아이디: {{ userInfo.username }}</p>
-      <p>닉네임: {{ userInfo.nickname }}</p>
+    <div v-if="isLoading" class="loading">
+      로딩 중...
+    </div>
+    <div v-else-if="userInfo" class="user-info">
+      <p><strong>아이디:</strong> {{ userInfo.username }}</p>
+      <p><strong>닉네임:</strong> {{ userInfo.nickname }}</p>
+    </div>
+    <div v-else class="error">
+      사용자 정보를 가져오는데 실패했습니다.
     </div>
   </div>
 </template>
@@ -45,3 +50,23 @@ const API_URL = 'http://127.0.0.1:8000'
 
 onMounted(getUserInfo)
 </script>
+
+<style scoped>
+.user-info {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.loading {
+  font-style: italic;
+  color: #888;
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
+}
+</style>
