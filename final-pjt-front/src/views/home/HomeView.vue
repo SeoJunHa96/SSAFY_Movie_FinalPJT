@@ -3,12 +3,14 @@
     <div>
       <h1>최근 개봉한 영화</h1>
       <Swiper
+        class="movie-list"
         :modules="swiperOptions.modules"
         :centered-slides="true"
         :loop="true"
         :slides-per-view="swiperOptions.slidesPerView"
         :space-between="swiperOptions.spaceBetween"
         :navigation="swiperOptions.navigation"
+        :autoplay="swiperOptions.autoplay"
         @swiper="swiperOptions.onSwiper"
         @slideChange="swiperOptions.onSlideChange"
       >
@@ -23,12 +25,14 @@
       <br><br>
       <h1>곧 개봉될 영화</h1>
       <Swiper
+        class="movie-list"
         :modules="swiperOptions.modules"
         :centered-slides="true"
         :loop="true"
         :slides-per-view="swiperOptions.slidesPerView"
         :space-between="swiperOptions.spaceBetween"
         :navigation="swiperOptions.navigation"
+        :autoplay="swiperOptions.autoplay"
         @swiper="swiperOptions.onSwiper"
         @slideChange="swiperOptions.onSlideChange"
       >
@@ -49,7 +53,7 @@ import { ref, onMounted, computed } from 'vue';
 import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
 import 'swiper/swiper-bundle.css';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 
 // swiper 관련1
 const onSwiper = (swiper) => {
@@ -63,10 +67,14 @@ const onSlideChange = () => {
 
 // swiper 관련3
 const swiperOptions = {
-  modules: [Navigation],
+  modules: [Navigation, Autoplay],
   slidesPerView: 4,
   spaceBetween: 50,
   navigation: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
   onSwiper,
   onSlideChange,
 };
@@ -125,5 +133,16 @@ onMounted(() => {
 .main-container {
   margin-left: 50px;
   margin-right: 50px;
+}
+h1 {
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+.movie-list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.1)
 }
 </style>
