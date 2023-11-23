@@ -20,7 +20,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   width: 600px;
   height: 500px;
-  margin: auto;
+  margin: 100px auto;
   display: flex;
   justify-content: center;
   align-items: center;
