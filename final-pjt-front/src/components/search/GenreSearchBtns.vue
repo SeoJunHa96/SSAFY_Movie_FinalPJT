@@ -19,7 +19,7 @@ import store from '@/store/index.js'
 import { useRouter } from 'vue-router';
 import { saveValue, saveType } from '@/utils/cookies.js';
 
-const genre = ref(['애니메이션', '역사', '코메디', '드라마', 'SF', '사회', '액션', '로맨스']);
+const genre = ref(['애니메이션', '역사', '코메디', '드라마', 'SF', '공포', '액션', '로맨스']);
 const searchText = ref('');
 
 const router = useRouter();

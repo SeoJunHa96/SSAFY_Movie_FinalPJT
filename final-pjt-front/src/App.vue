@@ -7,13 +7,13 @@
    
         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;" class="headersection">
           <router-link to="/" class="logo-link">
-            <img src="@/assets/logo.png" alt="LOGO" style="width: 95px" />
+            <img src="@/assets/logo.png" alt="LOGO" />
           </router-link>
           <nav class="nav-menu">
-            <router-link to="/profile" class="nav-link">My Profile</router-link>
-            <router-link to="/movieview" class="nav-link">Recommend</router-link>
-            <router-link to="/movierank" class="nav-link">Movie Ranking</router-link>
-            <RouterLink :to="{ name:'CommunityView'}" class="nav-link">Review</RouterLink>
+            <router-link to="/profile" class="nav-link">내 프로필</router-link>
+            <router-link to="/movieview" class="nav-link">추천 영화</router-link>
+            <router-link to="/movierank" class="nav-link">영화 순위</router-link>
+            <RouterLink :to="{ name:'CommunityView'}" class="nav-link">리뷰 게시판</RouterLink>
           </nav>
           <div class="movebutton">
             <template v-if="isLogin">
@@ -29,7 +29,7 @@
         </div>
     <div class="router-view-container">
       <hr style="margin: 5px;">
-      <RouterView />
+      <RouterView class="routerview"/>
     </div>
     <footer class="custom-footer">
       <p>Project By<br /><strong><a href="https://github.com/SeoJunHa96" style="text-decoration: none;" class="github-link">SEO JUN HA</a> & <a href="https://github.com/LikeBear95" style="text-decoration: none;" class="github-link">JEONG SE JIN</a></strong></p>
@@ -51,7 +51,6 @@ const logOut = () => {
 </script>
 
 <style lang="scss">
-
 /* your existing styles */
 .headersection {
   height: 100px;
@@ -65,16 +64,22 @@ const logOut = () => {
 
 .logo-link {
   display: block;
+  
+}
+.logo-link img {
+  width: 260px; /* 원하는 너비값으로 조절해보세요 */
+  height: 100px; /* 높이 자동으로 조정되도록 설정 */
+  margin: 10px -50px 20px 100px;
 }
 .nav-menu {
   display: flex; /* 요소들을 수평으로 배치하기 위해 flex로 설정합니다. */
-  gap: 20px; /* 요소들 사이의 간격을 조절합니다. */
+  gap: 50px; /* 요소들 사이의 간격을 조절합니다. */
 }
 .nav-menu .nav-link {
   display: flex;
   align-items: center;
   margin: 0px 20px; /* 네비게이션 메뉴 간격 조정 */
-  font-size: 25px;
+  font-size: 28px;
   color: #282828;
   text-decoration: none;
   position: relative;
