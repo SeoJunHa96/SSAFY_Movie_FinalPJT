@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="detail-container">
     <h1>Detail</h1>
-    <div v-if="article">
-      <p>제목: {{ article.title }}</p>
-      <p>내용: {{ article.content }}</p>
-      <p>작성일: {{ article.created_at }}</p>
-      <p>수정일: {{ article.updated_at }}</p>
+    <div v-if="article" class="article-detail">
+      <p><strong>제목:</strong> {{ article.title }}</p>
+      <p><strong>작성일:</strong> {{ article.created_at }}</p>
+      <p><strong>수정일:</strong> {{ article.updated_at }}</p>
+
+      <p style="margin-bottom: 150px;"><strong>내용:</strong> {{ article.content }}</p>
       <hr>
       <div v-if="article.comment_set && article.comment_set.length > 0">
         <h3>댓글</h3>
@@ -46,6 +47,35 @@ onMounted(() => {
 })
 </script>
 
-<style>
-/* 필요한 경우 스타일링 추가 */
+<style scoped>
+
+.detail-container {
+  width: 800px;
+  margin: 0 auto;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #8e8071;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.article-detail p {
+  margin-bottom: 10px;
+}
+
+.article-detail p strong {
+  font-weight: bold;
+}
+
+.article-detail hr {
+  margin: 20px 0;
+  border-color: #8e8071;
+}
+
+.article-detail h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 </style>
