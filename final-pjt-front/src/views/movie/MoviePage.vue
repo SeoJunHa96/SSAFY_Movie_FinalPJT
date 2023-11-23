@@ -8,5 +8,7 @@
   import MovieConts from '@/components/MovieConts.vue';
 </script>
 
-<style>
+<style scoped>
+@import '@/css/common.css';
+@import '@/css/reset.css';
 </style>

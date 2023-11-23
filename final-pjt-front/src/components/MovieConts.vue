@@ -131,5 +131,7 @@
   </script>
   
   <style scoped>
+  @import '@/css/common.css';
+@import '@/css/reset.css';
   </style>
   

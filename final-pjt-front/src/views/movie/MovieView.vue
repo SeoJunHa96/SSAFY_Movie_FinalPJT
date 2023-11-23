@@ -11,7 +11,7 @@
 </script>
   
 <style scoped>
-/* .main-container {
-  background-color: black;
-} */
+@import '@/css/common.css';
+@import '@/css/reset.css';
+
 </style>

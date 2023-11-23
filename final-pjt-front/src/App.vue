@@ -54,7 +54,8 @@ const logOut = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+
 /* your existing styles */
 .headersection {
   height: 100px;
