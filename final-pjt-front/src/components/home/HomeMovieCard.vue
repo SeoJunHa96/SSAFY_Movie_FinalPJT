@@ -42,9 +42,10 @@ const goMovie = (movie) => {
 <style>
 .movie-card {
   position: relative;
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+  /* border: 1px solid #ddd; */
+  padding: 20px auto;
+  margin: auto;
+  overflow: hidden;
 }
 
 .movie-poster {

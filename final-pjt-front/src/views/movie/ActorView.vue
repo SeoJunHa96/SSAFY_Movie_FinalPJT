@@ -1,23 +1,25 @@
 <template>
     <div class="main-container">
       <h1>배우 정보</h1>
+      <hr>
       <div v-if="actor" class="actor-container">
         <div class="profile-container">
           <img :src="getProfileUrl(actor.profile_path)" alt="actor_img">
         </div>
         <div class="info-container">
           <p>이름 : {{ actor.name }}</p>
-          <p>생일 : {{ actor.birthday }} ({{ actor.place_of_birth }})</p>
-          <p v-if="actor.deathday">사망 : {{ actor.deathday }}</p>
           <p>성별 : 
             <span v-if="actor.gender === 1">여</span>
             <span v-else-if="actor.gender === 2">남</span>
           </p>
+          <p>생일 : {{ actor.birthday }}</p>
+          <p v-if="actor.deathday">사망 : {{ actor.deathday }}</p>
+          <p v-if="actor.place_of_birth">출생지 : {{ actor.place_of_birth }}</p>
           <p>소개 : {{ actor.biography }}</p>
         </div>
       </div>
-      <hr>
       <h2>필모그래피</h2>
+      <hr>
       <div class="movie-cards">
           <MovieList
               v-for="movie in movies"
@@ -81,7 +83,7 @@
   
     const getProfileUrl = (relativePath) => {
       if (relativePath) {
-        return `https://image.tmdb.org/t/p/w500${relativePath}`;
+        return `https://image.tmdb.org/t/p/w400${relativePath}`;
       }
       return '';
     };
@@ -92,27 +94,50 @@
     });
     </script>
     
-    <style scoped>
-    .main-container {
-  margin-left: 50px;
-  margin-right: 50px;
+<style scoped>
+    @font-face {
+  font-family: 'maple';
+  src: url('@/assets/MaplestoryLight.ttf');
 }
-    .actor-container {
-      display: flex;
-    }
-    
-    .profile-container {
-      margin-right: 20px;  /* 오른쪽으로 여유를 주어 포스터와 정보를 구분 */
-    }
-    
-    .info-container {
-      flex: 1;  /* 남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
-    }
+    .main-container {
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+}
+.main-container > h1,
+.main-container > h2 {
+  padding-top: 20px;
+  margin-left: 50px;
+  padding-bottom: 10px;
+  font-family: 'maple';
+}
+  .actor-container {
+    display: flex;
+    justify-content: left;
+    margin-left: 50px;
+  }
   
+  .profile-container {
+    margin: 10px;
+  }
+  
+  .info-container {
+    margin: 25px 100px;
+    width: 500px;
+  }
+  
+    .movie-cards {
+    display: flex;
+    text-align: center;
+    }
     .movie-card {
     display: inline-block;
     text-align: center;
-    margin: 10px;
+    width: 250px;
+    height: 350px;
+    margin: auto 10px;
     }
-    </style>
+</style>
     

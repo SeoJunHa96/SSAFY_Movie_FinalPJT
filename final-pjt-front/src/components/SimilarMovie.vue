@@ -1,9 +1,7 @@
 <template>
     <div class="movieConts">
-
-  
-      <h2>{{ inputTextEdit(inputText) }}</h2>
-  
+      <br><br>
+      <h2>장르가 유사한 영화</h2>  
       <div class="movieNumBox">
         <p>( 오른쪽으로 스크롤 하면 순서대로 모든 영화 목록을 볼 수 있습니다. )</p>
       </div>

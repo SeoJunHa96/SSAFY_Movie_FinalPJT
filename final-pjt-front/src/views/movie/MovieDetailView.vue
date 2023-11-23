@@ -1,25 +1,26 @@
 <template>
   <div class="main-container">
     <h1>영화 정보</h1>
+    <hr>
     <div v-if="movie" class="movie-container">
       <div class="poster-container">
         <img :src="getPosterUrl(movie.poster_path)" alt="movie_poster">
       </div>
       <div class="info-container">
-        <p>제목 : {{ movie.title }}</p>
-        <p>개봉일 : {{ movie.release_date }}</p>
-        <p>인지도 : {{ movie.popularity }}</p>
-        <p>상영시간 : {{ movie.runtime }}</p>
-        <p>장르 : 
+        <p class="title">제목 : {{ movie.title }}</p>
+        <p class="releasedate">개봉일 : {{ movie.release_date }}</p>
+        <p class="popularity">인지도 : {{ movie.popularity }}</p>
+        <p class="runtime">상영시간 : <span v-if="Math.floor(movie.runtime/60)">{{ Math.floor(movie.runtime/60) }}시간</span> {{ movie.runtime % 60 }}분</p>
+        <p class="genre">장르 : 
         <span v-for="(genre, index) in movie.genres" :key="genre.id">
             {{ genre.name }}<span v-if="index !== movie.genres.length - 1">, </span>
         </span>
         </p>
-        <p>줄거리 : {{ movie.overview }}</p>
+        <p class="overview">줄거리 : {{ movie.overview }}</p>
       </div>
     </div>
-    <hr>
     <h2>출연 배우</h2>
+    <hr>
     <div class="actor-cards">
       <ActorList
         v-for="actor in actors"
@@ -83,7 +84,7 @@ const fetchActors = async () => {
 
 const getPosterUrl = (relativePath) => {
   if (relativePath) {
-    return `https://image.tmdb.org/t/p/w500${relativePath}`;
+    return `https://image.tmdb.org/t/p/w400${relativePath}`;
   }
   return '';
 };
@@ -96,26 +97,56 @@ onMounted(() => {
 </script>
   
 <style scoped>
+@font-face {
+  font-family: 'maple';
+  src: url('@/assets/MaplestoryLight.ttf');
+}
 .main-container {
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  width: auto;
+}
+.main-container > h1,
+.main-container > h2 {
+  padding-top: 20px;
   margin-left: 50px;
-  margin-right: 50px;
+  padding-bottom: 10px;
+  font-family: 'maple';
 }
   .movie-container {
     display: flex;
+    justify-content: left;
+    margin-left: 50px;
   }
   
   .poster-container {
-    margin-right: 20px;  /* 오른쪽으로 여유를 주어 포스터와 정보를 구분 */
+    margin: 10px;
   }
   
   .info-container {
-    flex: 1;  /* 남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
+    /* flex: 1;  남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
+    margin: 25px 100px;
+    width: 500px;
+  }
+  .info-container > .title {
+    /* flex: 1;  남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
+    font-weight: bold;
+    font-size: 150%;
   }
 
+  .actor-cards {
+    display: inline-block;
+    text-align: center;
+  }
   .actor-card {
-  display: inline-block;
-  text-align: center;
-  margin: 10px;
+    display: inline-block;
+    text-align: center;
+    width: 220px;
+    height: 330px;
+    margin: 10px;
   }
 </style>
   

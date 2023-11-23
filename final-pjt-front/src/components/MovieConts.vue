@@ -4,8 +4,9 @@
         <span class="arrow">← </span>
         <span class="text"> 검색 페이지로</span>
       </button>
-  
-      <h2>{{ inputTextEdit(inputText) }}</h2>
+      <div class="titleBox">
+        <h2>{{ inputTextEdit(inputText) }}</h2>
+      </div>
   
       <div class="movieNumBox">
         <p>총 {{ movieNum(moviedata.TotalCount) }}개의 영화가 검색되었습니다.</p>
@@ -44,14 +45,16 @@
   
   <script>
   import { useRouter } from 'vue-router';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
   import { saveInform, saveFirstKey } from '@/utils/cookies.js';
   import store from '@/store/index.js'
 
   export default {
       setup() {
           
+          const genre = ref(['애니메이션', '역사', '코메디', '드라마', 'SF', '공포', '액션', '로맨스']);
           const router = useRouter();
+          
   
           const inputText = computed(() => store.state.searchTxtBox.searchTxt);
           const moviedata = computed(() => store.state.moviedata);
@@ -112,6 +115,7 @@
               inputText,
               moviedata,
               movieResult,
+              genre,
               inputTextEdit,
               movieNum,
               posterURL,
@@ -128,6 +132,7 @@
           saveInform('');
       },
   };
+
   </script>
   
   <style scoped>

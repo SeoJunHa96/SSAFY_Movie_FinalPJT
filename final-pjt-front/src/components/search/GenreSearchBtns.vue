@@ -1,12 +1,8 @@
 <template>
   <div class="genreBtnBox">
     <form class="genreBtn" @click="btnSearch('genreCK')" v-bind:value="'genreCK'">
-      <p>
-        <span># genre</span> 
-        <span># 장르별</span>
-        <span>모아보기!</span>
-      </p>
-      <button v-for="(item, index) in genre" :key="index" @click="searchText = item">
+      <h3>※ 장르로 검색하기 ※</h3>
+      <button v-for="(item, index) in genre" :key="index" @click="searchText = item" class="btn btn-ghost">
         {{ item }}
       </button>
     </form>
