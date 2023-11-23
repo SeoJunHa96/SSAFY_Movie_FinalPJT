@@ -17,7 +17,7 @@
 @import '@/css/reset.css';
 
 .main-container {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(128, 128, 128, 0.7);
   width: 600px;
   height: 500px;
   margin: 100px auto;

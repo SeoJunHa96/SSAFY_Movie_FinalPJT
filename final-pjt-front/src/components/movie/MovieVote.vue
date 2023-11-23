@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>TOP 10</h3>
+    <h3>★ TOP 10 ★</h3>
 
     <div class="top-five" @click="goDetail(movie)" v-for="(movie, index) in topTenMovies.slice(0, 5)" :key="index">
       <img :src="getImageUrl(movie.poster_path)" alt="Movie Poster" class="top-movie-poster" />
@@ -19,7 +19,7 @@
       평점: {{ movie.vote_average }}
     </div>
     <hr>
-    <h3>TOP 100</h3>
+    <h3>☆ TOP 100 ☆</h3>
 
     <div class="other-movies">
       <div class="seven-movies-per-line" v-for="(movieGroup, groupIndex) in groupedOtherMovies" :key="groupIndex">
@@ -110,6 +110,11 @@ const goDetail = (movie) => {
 <style scoped>
 .movie-info {
 text-align: center;
+}
+div > h3 {
+  text-align: center;
+  margin: 50px;
+  font-weight: bold;
 }
 
 .top-movie-poster {

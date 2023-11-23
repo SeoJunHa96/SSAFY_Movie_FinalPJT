@@ -40,7 +40,7 @@
     color: #000;
     padding: 10px;
     border-radius: 5px;
-    margin-right: 10px;
+    margin: 10px auto;
   }
   
   .active {
