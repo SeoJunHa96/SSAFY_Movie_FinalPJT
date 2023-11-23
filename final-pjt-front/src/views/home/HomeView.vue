@@ -3,22 +3,22 @@
     <div>
       <h1>최근 개봉한 영화</h1>
       <Swiper
-        class="movie-list"
-        :modules="swiperOptions.modules"
-        :centered-slides="true"
-        :loop="true"
-        :slides-per-view="swiperOptions.slidesPerView"
-        :space-between="swiperOptions.spaceBetween"
-        :navigation="swiperOptions.navigation"
-        :autoplay="swiperOptions.autoplay"
-        @swiper="swiperOptions.onSwiper"
-        @slideChange="swiperOptions.onSlideChange"
+      class="movie-list"
+      :modules="swiperOptions.modules"
+      :centered-slides="true"
+      :loop="true"
+      :slides-per-view="swiperOptions.slidesPerView"
+      :space-between="swiperOptions.spaceBetween"
+      :navigation="swiperOptions.navigation"
+      :autoplay="swiperOptions.autoplay"
+      @swiper="swiperOptions.onSwiper"
+      @slideChange="swiperOptions.onSlideChange"
       >
       <SwiperSlide  v-for="movie in newMovies" :key="movie.id">
         <HomeMovieCard
-          v-if="movie.poster_path"
-          :key="movie.id"
-          :movie="movie"
+        v-if="movie.poster_path"
+        :key="movie.id"
+        :movie="movie"
         />
       </SwiperSlide>      
       </Swiper>
@@ -51,18 +51,19 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import HomeMovieCard from '@/components/home/HomeMovieCard.vue';
-import 'swiper/swiper-bundle.css';
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Swiper } from 'swiper/vue';
+import {SwiperSlide} from 'swiper/vue';
 import { Autoplay, Navigation } from 'swiper';
+import 'swiper/swiper-bundle.css';
 
 // swiper 관련1
 const onSwiper = (swiper) => {
-  // console.log(swiper);
+  console.log(swiper);
 };
 
 // swiper 관련2
 const onSlideChange = () => {
-  // console.log('slide change');
+  console.log('slide change');
 };
 
 // swiper 관련3

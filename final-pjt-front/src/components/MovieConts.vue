@@ -6,9 +6,6 @@
       </button>
       <div class="titleBox">
         <h2>{{ inputTextEdit(inputText) }}</h2>
-        <button v-for="(item, index) in genre" :key="index" @click="searchText = item">
-          {{ item }}
-        </button>
       </div>
   
       <div class="movieNumBox">

@@ -1,7 +1,9 @@
 <template>
   <div class="main-container">
-    <button @click="showMovieVote" :class="{ active: activeComponent === 'movievote' }" class="btn">평점</button>
-    <button @click="showMoviePopular" :class="{ active: activeComponent === 'moviepopular' }" class="btn">인기도</button>
+    <div class="button-container">
+      <button @click="showMovieVote" :class="{ active: activeComponent === 'movievote' }" class="btn">평점</button>
+      <button @click="showMoviePopular" :class="{ active: activeComponent === 'moviepopular' }" class="btn">인기도</button>
+    </div>
 
     <div v-if="activeComponent === 'movievote'">
       <MovieVote />
@@ -28,23 +30,31 @@
     activeComponent.value = 'moviepopular';
   };
 </script>
-
 <style>
-  .main-container {
+.main-container {
   margin-left: 50px;
   margin-right: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-  .btn {
-    background-color: #ccc;
-    color: #000;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px auto;
-  }
-  
-  .active {
-    background-color: #999;
-  }
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background-color: #ccc;
+  color: #000;
+  width: 200px; /* 버튼 가로 크기 조정 */
+  height: 50px; /* 버튼 세로 크기 조정 */
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.active {
+  background-color: #999;
+}
+
 </style>
-  
