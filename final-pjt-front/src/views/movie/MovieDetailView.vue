@@ -108,7 +108,7 @@ onMounted(() => {
 .main-container > h1,
 .main-container > h2 {
   padding-top: 20px;
-  margin-left: 20px;
+  margin-left: 50px;
   padding-bottom: 10px;
 }
   .movie-container {
@@ -117,17 +117,18 @@ onMounted(() => {
   }
   
   .poster-container {
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 10px;
   }
   
   .info-container {
     /* flex: 1;  남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
-    margin-top: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 30px;
     width: 500px;
+  }
+  .info-container > .title {
+    /* flex: 1;  남은 공간을 모두    차지하도록 설정하여 오른쪽에 텍스트 정보를 정렬 */
+    font-weight: bold;
+    font-size: 150%;
   }
 
   .actor-cards {
