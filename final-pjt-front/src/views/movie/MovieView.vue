@@ -1,14 +1,17 @@
 <template>
-    <div>
-      <InputSearchForm></InputSearchForm>
-      <GenreSearchBtns></GenreSearchBtns>
-    </div>
-  </template>
+  <div class="main-container">
+    <InputSearchForm></InputSearchForm>
+    <GenreSearchBtns></GenreSearchBtns>
+  </div>
+</template>
   
-  <script setup>
+<script setup>
   import InputSearchForm from '@/components/search/InputSearchForm.vue';
   import GenreSearchBtns from '@/components/search/GenreSearchBtns.vue';
-  </script>
+</script>
   
-  <style scoped>
-  </style>
+<style scoped>
+/* .main-container {
+  background-color: black;
+} */
+</style>

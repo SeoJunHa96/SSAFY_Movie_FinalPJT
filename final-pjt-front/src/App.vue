@@ -57,6 +57,7 @@ const logOut = () => {
 <style scoped>
 /* your existing styles */
 .headersection {
+  height: 100px;
   background: #fff;
   display: flex;
   align-items: center;
@@ -67,7 +68,9 @@ const logOut = () => {
 .logo-link {
   display: block;
 }
-
+.nav-menu {
+  gap: 100px;
+}
 .nav-menu .nav-link {
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div>
     <InformConts></InformConts>
     <SimilarMovie></SimilarMovie>
   </div>
@@ -11,9 +11,5 @@
 </script>
   
 <style>
-  .main-container {
-    margin-left: 50px;
-    margin-right: 50px;
-}
 </style>
     
