@@ -148,8 +148,12 @@
 
 /* ----------MovieConts---------- */
 .movieConts {
-  width: 100%;
+  width: 70%;
   padding: 0px 50px;
+  margin: auto;
+}
+.movieConts > h2 {
+  text-align: center;
 }
 .movieConts > .titleBox {
   display: flex;

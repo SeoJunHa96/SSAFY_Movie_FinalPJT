@@ -91,7 +91,7 @@ onMounted(getUserInfo)
 <style scoped>
 @font-face {
   font-family: 'maple';
-  src: url('@/assets/MaplestoryLight.ttf');
+  src: url('@/assets/MaplestoryBold.ttf');
 }
 .main-container {
   margin-left: 100px;

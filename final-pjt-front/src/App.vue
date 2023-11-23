@@ -11,8 +11,8 @@
           </router-link>
           <nav class="nav-menu">
             <router-link to="/profile" class="nav-link">내 프로필</router-link>
-            <router-link to="/movieview" class="nav-link">추천 영화</router-link>
-            <router-link to="/movierank" class="nav-link">영화 순위</router-link>
+            <router-link to="/movieview" class="nav-link">영화 검색</router-link>
+            <router-link to="/movierank" class="nav-link">추천 영화</router-link>
             <RouterLink :to="{ name:'CommunityView'}" class="nav-link">리뷰 게시판</RouterLink>
           </nav>
           <div class="movebutton">
@@ -51,6 +51,10 @@ const logOut = () => {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: 'maple';
+  src: url('@/assets/MaplestoryLight.ttf');
+}
 /* your existing styles */
 .headersection {
   height: 100px;
@@ -84,7 +88,8 @@ const logOut = () => {
   text-decoration: none;
   position: relative;
   padding: 6px 12px;
-  
+  font-family: 'maple';
+  // font-size: 150%;
 }
 
 .nav-menu .nav-link::after {
@@ -131,6 +136,8 @@ const logOut = () => {
   width: 120px;
   position: relative;
   transition: background-color 0.3s;
+  font-family: 'maple';
+  font-size: 150%;
 }
 
 .account-link:hover {
@@ -161,6 +168,7 @@ const logOut = () => {
   text-align: center;
   padding: 15px;
   width: 100%;
+  font-family: 'maple';
 }
 .github-link {
   color: #fff;
