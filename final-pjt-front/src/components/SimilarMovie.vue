@@ -1,9 +1,6 @@
 <template>
     <div class="movieConts">
-      <button class="gomainBtn" @click.prevent="goMain">
-        <span class="arrow">← </span>
-        <span class="text"> 검색 페이지로</span>
-      </button>
+
   
       <h2>{{ inputTextEdit(inputText) }}</h2>
   
@@ -39,6 +36,10 @@
       </div>
   
       <br /><br />
+      <button class="gomainBtn" @click.prevent="goMain">
+        <span class="arrow">← </span>
+        <span class="text"> 검색 페이지로</span>
+      </button>
     </div>
   </template>
   
@@ -78,7 +79,7 @@
   };
   
   const goMain = () => {
-    router.push('/movies');
+    router.push('/movieview');
   };
   
   const keyWord = (key) => {

@@ -12,7 +12,7 @@ import MovieRankView from '@/views/movie/MovieRankView.vue'
 import MoviePopular from '@/components/movie/MoviePopular.vue'
 import MovieVote from '@/components/movie/MovieVote.vue'
 import MoviePage from '@/views/movie/MoviePage.vue'
-import MovieInfo from '@/components/InformConts.vue'
+import MovieInfo from '@/views/movie/InformPage.vue'
 
 import CommunityView from '@/views/community/CommunityView.vue'
 import CommunityDetailView from '@/views/community/CommunityDetailView.vue'
