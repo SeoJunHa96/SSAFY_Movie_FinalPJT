@@ -111,16 +111,25 @@ const router = createRouter({
 
 import { useCounterStore } from '@/stores/counter'
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   const store = useCounterStore()
-  if (to.name === 'HomeView' && !store.isLogin) {
-    window.alert('로그인이 필요합니다.')
-    return { name: 'LogInView' }
+
+  // 로그인하지 않은 상태에서 프로필 페이지로 이동할 때
+  if (to.name === 'MyProfileView' && !store.isLogin) {
+    next({ name: 'LoginView' }) // 로그인 페이지로 리다이렉트
   }
-  if ((to.name === 'HomeView' || to.name === 'LoginView') && (store.isLogin)) {
-    window.alert('이미 로그인 했습니다.')
-    return { name: 'ArticleView' }
+
+  // 로그인하지 않은 상태에서 Create 페이지로 이동할 때
+  if (to.name === 'CreateView' && !store.isLogin) {
+    if (window.confirm('로그인이 필요합니다.')) {
+      next({ name: 'LoginView' }) // 로그인 페이지로 리다이렉트
+    } else {
+      // 사용자가 취소를 선택하면 현재 페이지에 머무름
+      next(false)
+    }
   }
+
+  next() // 다음 단계로 진행
 })
 
 export default router

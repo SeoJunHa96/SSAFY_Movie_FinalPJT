@@ -1,22 +1,21 @@
 <template>
-  <div>
+  <div id="app">
+    <div class="background-image"></div>
     <div style="display: flex; justify-content: flex-end;">
       <br>
     </div>
-    <b-navbar toggleable="lg" type="white" variant="white">
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
+   
         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;" class="headersection">
           <router-link to="/" class="logo-link">
             <img src="@/assets/logo.png" alt="LOGO" style="width: 95px" />
           </router-link>
-          <b-navbar-nav class="nav-menu">
+          <nav class="nav-menu">
             <router-link to="/profile" class="nav-link">My Profile</router-link>
             <router-link to="/movieview" class="nav-link">Recommend</router-link>
             <router-link to="/movierank" class="nav-link">Movie Ranking</router-link>
             <RouterLink :to="{ name:'CommunityView'}" class="nav-link">Review</RouterLink>
-          </b-navbar-nav>
-          <div>
+          </nav>
+          <div class="movebutton">
             <template v-if="isLogin">
               <button @click="logOut" class="accountbutton">로그아웃</button>
             </template>
@@ -28,15 +27,12 @@
             </template>
           </div>
         </div>
-      </b-collapse>
-    </b-navbar>
-    <div>
-      <hr style="margin: 10px;">
+    <div class="router-view-container">
+      <hr style="margin: 5px;">
       <RouterView />
     </div>
     <footer class="custom-footer">
-      <p>Project By<br />SEO JUN HA & JEONG SE JIN</p>
-      <br />
+      <p>Project By<br /><strong><a href="https://github.com/SeoJunHa96" style="text-decoration: none;" class="github-link">SEO JUN HA</a> & <a href="https://github.com/LikeBear95" style="text-decoration: none;" class="github-link">JEONG SE JIN</a></strong></p>
       <a href="https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT" class="github-link">https://github.com/SeoJunHa96/SSAFY_Movie_FinalPJT</a>
     </footer>
   </div>
@@ -59,18 +55,20 @@ const logOut = () => {
 /* your existing styles */
 .headersection {
   height: 100px;
-  background: #fff;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 10px; /* 예시로 패딩값 조정 */
+  background: none; /* 배경을 초기화합니다. */
+  backdrop-filter: blur(2px); /* 배경에 블러 효과를 추가합니다. */
 }
 
 .logo-link {
   display: block;
 }
 .nav-menu {
-  gap: 100px;
+  display: flex; /* 요소들을 수평으로 배치하기 위해 flex로 설정합니다. */
+  gap: 20px; /* 요소들 사이의 간격을 조절합니다. */
 }
 .nav-menu .nav-link {
   display: flex;
@@ -81,6 +79,7 @@ const logOut = () => {
   text-decoration: none;
   position: relative;
   padding: 6px 12px;
+  
 }
 
 .nav-menu .nav-link::after {
@@ -136,11 +135,54 @@ const logOut = () => {
 }
 .auth-buttons {
   display: flex;
-  gap: 10px;
+  gap: 30px;
 }
 .accountbutton:hover {
   background-color: #333;
   color: #00ff0d;
   cursor: pointer;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 최소 높이를 브라우저 높이만큼 지정 */
+}
+
+.custom-footer {
+  margin-top: auto; /* 페이지가 넘칠 때 푸터가 항상 아래에 위치하도록 함 */
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+}
+.github-link {
+  color: #fff;
+  text-decoration: none;
+}
+.github-link:hover {
+  color: rgb(127, 127, 216); 
+}
+.router-view-container {
+  min-height: calc(100vh - 200px);
+  overflow-y: auto; 
+}
+.background-image {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url('@/assets/login.png/');
+  background-size: cover;
+  opacity: 0.5; /* 배경 이미지 투명도 조절 */
+  z-index: -1; /* 배경 이미지가 가장 뒤에 표시되도록 z-index 설정 */
+}
+.hiddenclass {
+  background: none;
+}
+.movebutton {
+  margin: 0px 100px 0px 0px;;
 }
 </style>

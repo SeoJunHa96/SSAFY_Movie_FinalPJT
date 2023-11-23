@@ -5,7 +5,6 @@
       <h2>{{ inputTextEdit(inputText) }}</h2>
   
       <div class="movieNumBox">
-        <p>총 {{ movieNum(moviedata.TotalCount) }}개의 영화가 검색되었습니다.</p>
         <p>( 오른쪽으로 스크롤 하면 순서대로 모든 영화 목록을 볼 수 있습니다. )</p>
       </div>
   
