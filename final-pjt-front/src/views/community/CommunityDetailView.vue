@@ -125,6 +125,7 @@ h1 {
 
 .article-detail {
   position: relative;
+  word-wrap: break-word;
 }
 
 .article-detail::before {
